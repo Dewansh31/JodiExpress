@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/JodiExpress/static/css/main.4e9dbbf8.css",
+    "main.js": "/JodiExpress/static/js/main.ee674a20.js",
+    "index.html": "/JodiExpress/index.html",
+    "main.4e9dbbf8.css.map": "/JodiExpress/static/css/main.4e9dbbf8.css.map",
+    "main.ee674a20.js.map": "/JodiExpress/static/js/main.ee674a20.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4e9dbbf8.css",
+    "static/js/main.ee674a20.js"
+  ]
+}
