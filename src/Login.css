@@ -1,0 +1,148 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins',sans-serif;
+}
+.mbody{
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  /* background: #ea025b; */
+}
+.containera{
+  max-width: 400px;
+  width: 120%;
+  background-color: #fff;
+  padding: 25px 30px;
+  border-radius: 5px;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+}
+.containera .title{
+  font-size: 25px;
+  font-weight: 500;
+  position: relative;
+}
+.containera .title::before{
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 30px;
+  border-radius: 5px;
+  background: #ea025b;
+}
+.content .lform .user-detailsa{
+  /* display: flex; */
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin: 20px 0 12px 0;
+}
+.lform .user-detailsa .input-boxa{
+  margin-bottom: 15px;
+  width: calc(100% / 2 - 20px);
+}
+.lform .input-boxa span.detailsa{
+  display: block;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+
+.user-detailsa .input-boxa input{
+  height: 45px;
+  width: 220%;
+  outline: none;
+  font-size: 16px;
+  border-radius: 5px;
+  padding-left: 15px;
+  border: 1px solid #ccc;
+  border-bottom-width: 2px;
+  transition: all 0.3s ease;
+}
+.user-detailsa .input-boxa .linput:focus,
+.user-detailsa .input-boxa .linput:valid{
+  border-color: #9b59b6;
+}
+ .lform .gender-detailsa .gender-title{
+  font-size: 20px;
+  font-weight: 500;
+ }
+ .lform .category{
+   display: flex;
+   width: 80%;
+   margin: 14px 0 ;
+   justify-content: space-between;
+ }
+ .lform .category label{
+   display: flex;
+   align-items: center;
+   cursor: pointer;
+ }
+ .lform .category label .dot{
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  margin-right: 10px;
+  background: #d9d9d9;
+  border: 5px solid transparent;
+  transition: all 0.3s ease;
+}
+ #dot-1:checked ~ .category label .one,
+ #dot-2:checked ~ .category label .two,
+ #dot-3:checked ~ .category label .three{
+   background: #9b59b6;
+   border-color: #d9d9d9;
+ }
+ .lform .linput[type="radio"]{
+   display: none;
+ }
+ .lform .button{
+   height: 45px;
+   margin: 35px 0
+ }
+ .lform .button .linput{
+   height: 100%;
+   width: 97%;
+   border-radius: 5px;
+   border: none;
+   color: #fff;
+   font-size: 18px;
+   font-weight: 500;
+   letter-spacing: 1px;
+   cursor: pointer;
+   transition: all 0.3s ease;
+   background: #d4306f;
+ }
+ .lform .button .linput:hover{
+  /* trans.lform: scale(0.99); */
+  background: #ea025b;
+  }
+ @media(max-width: 584px){
+ .containera{
+  max-width: 100%;
+}
+.lform .user-detailsa .input-boxa{
+    margin-bottom: 15px;
+    width: 40%;
+  }
+  .lform .category{
+    width: 100%;
+  }
+  .content .lform .user-detailsa{
+    max-height: 300px;
+    overflow-y: scroll;
+  }
+  .user-detailsa::-webkit-scrollbar{
+    width: 5px;
+  }
+  }
+  @media(max-width: 459px){
+  .containera .content .category{
+    flex-direction: column;
+  }
+}
