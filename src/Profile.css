@@ -146,6 +146,9 @@ form .user-details .input-box{
   }
   }
   @media(max-width: 459px){
+    .container {
+      max-width: 400px;
+    }
   .container .content .category{
     flex-direction: column;
   }

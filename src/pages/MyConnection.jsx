@@ -1,9 +1,10 @@
 import React from 'react'
+import Table from '../components/Table'
 
 const MyConnection = () => {
   return (
-    <div>
-        <h2>My Connections</h2>
+    <div className='container' style={{maxWidth:"100%"}}>
+        <Table/>
     </div>
   )
 }

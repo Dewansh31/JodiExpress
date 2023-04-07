@@ -35,7 +35,7 @@ p {
 main {
   min-width: 320px;
   max-width: 800px;
-  padding: 50px;
+  padding: 15px;
   margin: 0 auto;
   background: #fff;
 }
