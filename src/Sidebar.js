@@ -1,9 +1,38 @@
-import React from 'react'
+import React, { useState,useEffect } from 'react'
 import './Sidebar.css'
-import Profile from './Profile'
-import { Link } from 'react-router-dom'
+import { Link ,useNavigate} from 'react-router-dom'
+import { getAuth, signOut } from "firebase/auth";
 
-function Sidebar() {
+function Sidebar(props) {
+
+  const navigate = useNavigate();
+
+  const [UN,setUN] = useState("");
+
+  useEffect(() => {
+    setUN(props.username);
+    // eslint-disable-next-linecd
+ }, []);
+
+
+  
+
+  const handleLogout = () =>{
+
+    const auth = getAuth();
+
+    signOut(auth).then(() => {
+      // console.log("logged out!");
+      
+      
+      navigate("/login")
+
+    }).catch((error) => {
+      console.log("logout failed!");
+    });
+
+  }
+
   return (
     <div>
      <div>
@@ -15,8 +44,8 @@ function Sidebar() {
     <div className="side-content">
       <div className="profile">
         <div className="profile-img bg-img" style={{backgroundImage: 'url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAVVQ1zRPAbCMH_VAZHKSlSC_IKOHGKEtoDQ&usqp=CAU)'}} />
-        <h4>David Green</h4>
-        <small>Art Director</small>
+        <h4>{UN}</h4>
+      
       </div>
       <div className="side-menu">
         <ul>
@@ -62,14 +91,14 @@ function Sidebar() {
           <span className="las la-bars" />
         </label>
         <div className="header-menu">
-          <label htmlFor>
+          {/* <label htmlFor>
             <span className="las la-search" />
-          </label>
+          </label> */}
          
-          <div className="user">
+          <div className="user" onClick={handleLogout}>
             <div className="bg-img" style={{backgroundImage: 'url(img/1.jpeg)'}} />
             <span className="las la-power-off" />
-            <span>Logout</span>
+            <span><b>Logout</b></span>
           </div>
         </div>
       </div>

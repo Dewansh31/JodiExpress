@@ -1,6 +1,6 @@
 * {
     padding: 0;
-    margin: 0;
+    margin-top: 20px;
     box-sizing: border-box;
     border: none;
     outline: none;
@@ -96,5 +96,9 @@
     #products {
       grid-template-columns: auto auto;
       grid-column-gap: 1em;
+    }
+    .searchBarwrapper {
+     
+      margin-top: 200px;
     }
   }

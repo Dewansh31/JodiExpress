@@ -1,84 +1,76 @@
-// import Sidebar from './components/Sidebar';
-// // import './App.css'
-// import Dashboard from './pages/Dashboard';
-// import MyProfile from './pages/MyProfile';
-// import MyConnection from './pages/MyConnection';
-// import MyRequests from './pages/MyRequests';
-// import Signup from './pages/Signup';
-// import Plans from './pages/Plans';
-// import MainPage from './pages/MainPage';
-// import Profile from './components/FormGroup/Profile';
-// import FamilyDetails from './components/FormGroup/FamilyDetails';
-// import Sidebar2 from './components/Sidebar2';
-// import EducationDetails from './components/FormGroup/EducationDetails';
-// import ProfessionalDetails from './components/FormGroup/ProfessionalDetails';
-
-
-// function App() {
-//   return (
-// 	<Router>
-// 	{/* <Sidebar2> */}
-
-// 	  <Routes>
-// 	   <Route path="/" element={<Dashboard />} />
-// 		<Route path="/dashboard" element={<Dashboard />} />
-// 		<Route path="/myprofile" element={<MyProfile />} />
-// 		<Route path="/myrequests" element={<MyRequests/>} />
-// 		<Route path="/myrequests" element={<MyRequests/>} />
-// 		<Route path="/plans" element={<Plans />} />
-// 		<Route path="/mp" element={<MainPage />} /> */}
-// 		<Route path="/profile" element={<Profile />} />
-// 		<Route path="/familydetails" element={<FamilyDetails />} />
-// 		<Route path="/professionaldetails" element={<ProfessionalDetails />} />
-// 		<Route path="/educationaldetails" element={<EducationDetails />} />
-		
-// 	  </Routes>
-// 	{/* </Sidebar2> */}
-//   </Router>
-//   );
-// }
-
-// export default App;
-
-
 import { BrowserRouter as Router,Routes,Route} from 'react-router-dom'
 import EducationDetails from "./EducationDetails";
 import FamilyDetails from "./FamilyDetails";
 import ProfessionalDetails from "./ProfessionalDetails";
-import Sidebar from "./Sidebar";
 import Dashboard from './pages/Dashboard';
 import MyConnection from './pages/MyConnection';
 import MyRequests from './pages/MyRequests';
 import NavTab from './components/NavTab'
 import Signup from './Signup'
 import Login from './Login'
+import { useState,useEffect } from 'react';
+import { auth } from "./firebase";
+import ErrorPage from './ErrorPage';
 
 function App() {
+
+	const [isAuthenticated,setIsAuthenticated] = useState(false);
+	const [userName, setUserName] = useState("");
+	
+	useEffect(() => {
+		auth.onAuthStateChanged((user) => {
+		  if (user) {
+			setUserName(user.displayName);
+			setIsAuthenticated(true)
+		  } else {
+			setUserName("")
+		  };
+		});
+	  }, []);
+
+
   return (
     <Router>
       
 
 
-      <Sidebar/>
+    
 
 		<Routes>
 
-    <Route path="/signup" element={<Signup />} />
-    <Route path="/login" element={<Login />} /> 
+			
 
-
-   <Route path="/" element={<Dashboard />} />
-
-		<Route path="/dashboard" element={<Dashboard />} />
-  
-		<Route path="/profile" element={<NavTab />} />
-		<Route path="/familydetails" element={<FamilyDetails />} />
-		<Route path="/professionaldetails" element={<ProfessionalDetails />} />
-		<Route path="/educationaldetails" element={<EducationDetails />} />
-		<Route path="/myconnections" element={<MyConnection />} />
-		<Route path="/myrequests" element={<MyRequests />} />
+				<>
+				<Route path="/signup" element={<Signup />} />
+				<Route path="/login" element={<Login />} /> 
+				<Route path="/*" element={<Login />} />	
+				</>
 		
+
+
 	
+
+   
+
+	{ isAuthenticated &&
+
+       <>
+
+        <Route path="/" element={<Dashboard name={userName} />} />
+
+		<Route path="/dashboard" element={<Dashboard name={userName} />} />
+  
+		<Route path="/profile" element={<NavTab name={userName} />} />
+		<Route path="/familydetails" element={<FamilyDetails name={userName} />} />
+		<Route path="/professionaldetails" element={<ProfessionalDetails name={userName} />} />
+		<Route path="/educationaldetails" element={<EducationDetails name={userName} />} />
+		<Route path="/myconnections" element={<MyConnection  name={userName}/>} />
+		<Route path="/myrequests" element={<MyRequests name={userName} />} />
+
+		<Route path="*" element={<ErrorPage name={userName}/>} />	
+		
+		</>
+   }
 
 		</Routes>
 

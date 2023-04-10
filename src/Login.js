@@ -1,31 +1,63 @@
-import React from 'react'
+import React,{useState} from 'react'
 import './Login.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from "react-router-dom";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "./firebase";
 
 function Login() {
-  return (
-    <body className='mbody'>
 
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMsg, setErrorMsg] = useState("");
+
+  const navigate = useNavigate();
+ 
+  const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
+
+  let handleSubmit =  (e) => {
+    e.preventDefault();
+
+    if (!email || !password) {
+      setErrorMsg("Fill all fields");
+      return;
+    }
+    setErrorMsg("");
+
+    setSubmitButtonDisabled(true);
+
+    signInWithEmailAndPassword(auth, email, password)
+      .then(async (res) => {
+        setSubmitButtonDisabled(false);
+        navigate("/");
+      })
+      .catch((err) => {
+        setSubmitButtonDisabled(false);
+        setErrorMsg(err.message);
+      });
     
+  };
+
+  return (
     <div>
-  <div className="containera">
+  <div className="container1">
     <div className="title">Login</div>
     <div className="content">
-      <form className='lform' action="#">
-        <div className="user-detailsa">
+      <form action="#">
+        <div className="user-details1">
           
-          <div className="input-boxa">
-            <span className="detailsa">Email</span>
-            <input className="linput" type="text" placeholder="Enter your email" required />
+          <div className="input-box1">
+            <span className="details">Email</span>
+            <input type="email" placeholder="Enter your email" required value={email}  onChange={(e) => setEmail(e.target.value)} name="email" />
           </div>
          
-          <div className="input-boxa">
-            <span className="detailsa">Password</span>
-            <input className="linput" type="password" placeholder="Enter your password" required />
+          <div className="input-box1">
+            <span className="details">Password</span>
+            <input type="password" placeholder="Enter your password" required value={password}  onChange={(e) => setPassword(e.target.value)} name="password" />
           </div>
+          <p className="errormsg">{errorMsg}</p>
           <div className="button">
-            <input className="linput" type="submit" defaultValue="Register" /><br />
-            <span className="text" style={{padding:"5px"}}>Don't Have An Account? &nbsp;
+            <input type="submit" defaultValue="Login" isabled={submitButtonDisabled} onClick={handleSubmit} /><br /><br/>
+            <span className="text">Don't Have An Account? &nbsp;
               <Link to="/signup" className="text login-link">Signup</Link>
             </span>
           </div>
@@ -33,7 +65,6 @@ function Login() {
     </div>
   </div>
 </div>
-</body>
 
   )
 }

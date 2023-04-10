@@ -5,15 +5,23 @@
   box-sizing: border-box;
   font-family: 'Poppins',sans-serif;
 }
-.mbody{
+body{
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 10px;
-  /* background: #ea025b; */
+  /* background: #f2f6ff; */
+  /* background: url("https://as1.ftcdn.net/v2/jpg/04/23/50/24/1000_F_423502413_wFPUF3ti7Ga8Xsx212nyV7Xxd87DbZyN.jpg"); */
+  /* background-repeat: no-repeat;  */
 }
-.containera{
+
+.errormsg{
+  color: red;
+  font-size: 20px;
+  font-weight: normal;
+}
+.container1{
   max-width: 400px;
   width: 120%;
   background-color: #fff;
@@ -21,12 +29,12 @@
   border-radius: 5px;
   box-shadow: 0 5px 10px rgba(0,0,0,0.15);
 }
-.containera .title{
+.container1 .title{
   font-size: 25px;
   font-weight: 500;
   position: relative;
 }
-.containera .title::before{
+.container1 .title::before{
   content: "";
   position: absolute;
   left: 0;
@@ -36,24 +44,22 @@
   border-radius: 5px;
   background: #ea025b;
 }
-.content .lform .user-detailsa{
+.content form .user-details1{
   /* display: flex; */
   flex-wrap: wrap;
   justify-content: space-between;
   margin: 20px 0 12px 0;
 }
-.lform .user-detailsa .input-boxa{
+form .user-details1 .input-box1{
   margin-bottom: 15px;
   width: calc(100% / 2 - 20px);
 }
-.lform .input-boxa span.detailsa{
+form .input-box1 span.details{
   display: block;
   font-weight: 500;
   margin-bottom: 5px;
 }
-
-
-.user-detailsa .input-boxa input{
+.user-details1 .input-box1 input{
   height: 45px;
   width: 220%;
   outline: none;
@@ -64,26 +70,26 @@
   border-bottom-width: 2px;
   transition: all 0.3s ease;
 }
-.user-detailsa .input-boxa .linput:focus,
-.user-detailsa .input-boxa .linput:valid{
+.user-details1 .input-box1 input:focus,
+.user-details1 .input-box1 input:valid{
   border-color: #9b59b6;
 }
- .lform .gender-detailsa .gender-title{
+ form .gender-details .gender-title{
   font-size: 20px;
   font-weight: 500;
  }
- .lform .category{
+ form .category{
    display: flex;
    width: 80%;
    margin: 14px 0 ;
    justify-content: space-between;
  }
- .lform .category label{
+ form .category label{
    display: flex;
    align-items: center;
    cursor: pointer;
  }
- .lform .category label .dot{
+ form .category label .dot{
   height: 18px;
   width: 18px;
   border-radius: 50%;
@@ -98,14 +104,14 @@
    background: #9b59b6;
    border-color: #d9d9d9;
  }
- .lform .linput[type="radio"]{
+ form input[type="radio"]{
    display: none;
  }
- .lform .button{
+ form .button{
    height: 45px;
    margin: 35px 0
  }
- .lform .button .linput{
+ form .button input{
    height: 100%;
    width: 97%;
    border-radius: 5px;
@@ -118,31 +124,36 @@
    transition: all 0.3s ease;
    background: #d4306f;
  }
- .lform .button .linput:hover{
-  /* trans.lform: scale(0.99); */
+ form .button input:hover{
+  /* transform: scale(0.99); */
   background: #ea025b;
   }
+
+  form .button input:disabled{
+    /* transform: scale(0.99); */
+    background: grey;
+    }
  @media(max-width: 584px){
- .containera{
+ .container1{
   max-width: 100%;
 }
-.lform .user-detailsa .input-boxa{
+form .user-details1 .input-box1{
     margin-bottom: 15px;
-    width: 40%;
+    width: 45%;
   }
-  .lform .category{
+  form .category{
     width: 100%;
   }
-  .content .lform .user-detailsa{
-    max-height: 300px;
-    overflow-y: scroll;
+  .content form .user-details1{
+    max-height: 400px;
+    /* overflow-y: scroll; */
   }
-  .user-detailsa::-webkit-scrollbar{
+  .user-details1::-webkit-scrollbar{
     width: 5px;
   }
   }
   @media(max-width: 459px){
-  .containera .content .category{
+  .container1 .content .category{
     flex-direction: column;
   }
 }

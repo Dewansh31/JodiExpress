@@ -1,15 +1,28 @@
 import React from 'react';
 import Search from './Search';
-import Profile from '../Profile';
+import Sidebar from '../Sidebar';
 
 
-const Dashboard = () => {
+import Grid from '../Grid';
+
+
+
+const Dashboard = (props) => {
   return (
     <div className='dashContainer'>
+
+      <Sidebar username={props.name} />
      
     <Search/>
 
-    <Profile/>
+ 
+
+
+    {/* <Profile/> */}
+    <Grid/>
+
+    
+ 
 
     </div>
   );
