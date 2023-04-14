@@ -4,22 +4,17 @@ import Sidebar from '../Sidebar';
 
 
 import Grid from '../Grid';
+// import CardDetails from '../CardDetails';
 
 
 
 const Dashboard = (props) => {
   return (
-    <div className='dashContainer'>
+    <div>
 
-      <Sidebar username={props.name} />
+      <Sidebar username={props.name}  />
      
     <Search/>
-
- 
-
-
-    {/* <Profile/> */}
-    <Grid/>
 
     
  

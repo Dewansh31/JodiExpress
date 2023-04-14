@@ -29,7 +29,7 @@ function Profile(props) {
   // collection(firestore,`users/${username}/basicDetails`)
 
   const writeData =  async () =>{
-   const docRef = doc (firestore,`users/${user.displayName}/basicDetails`,`${user.displayName}`);
+   const docRef = doc (firestore,`users`,`${user.displayName}`);
    await updateDoc(docRef,  {
       fullName:fullName,
       dob:dob,
@@ -63,10 +63,10 @@ function Profile(props) {
   const getData = async()=>{
 
 
-    const docRef = doc (firestore,`users/${user.displayName}/basicDetails`,`${user.displayName}`);
+    const docRef = doc (firestore,`users`,`${user.displayName}`);
     const docSnap = await getDoc(docRef);
     const basicDetailsData = docSnap.data();
-    console.log(basicDetailsData);
+    // console.log(basicDetailsData);
 
     setFullName(basicDetailsData.fullName)
     setDOB(basicDetailsData.dob)
@@ -88,7 +88,7 @@ function Profile(props) {
 
   return (
     <div>
-     <div className="container">
+     <div className="formcontainer">
   <div className="title">Basic Details</div>
   <div className="content">
     <form action="#">

@@ -26,7 +26,7 @@ function ProfessionalDetails() {
 
 
   const writeData =  async () =>{
-   const docRef = doc (firestore,`users/${user.displayName}/professionalDetails`,`${user.displayName}`);
+   const docRef = doc (firestore,`users`,`${user.displayName}`);
    await updateDoc(docRef,  {
  
      workplace:workplace,
@@ -43,10 +43,10 @@ function ProfessionalDetails() {
   const getData = async()=>{
 
 
-    const docRef = doc (firestore,`users/${user.displayName}/professionalDetails`,`${user.displayName}`);
+    const docRef = doc (firestore,`users`,`${user.displayName}`);
     const docSnap = await getDoc(docRef);
     const proDetailsData = docSnap.data();
-    console.log(proDetailsData);
+    // console.log(proDetailsData);
 
     setWorkPlace(proDetailsData.workplace)
     setIncome(proDetailsData.income)
@@ -66,7 +66,7 @@ function ProfessionalDetails() {
 
   return (
     <div>
-      <div className="container">
+      <div className="formcontainer">
         <div className="title">Professional Details</div>
         <div className="content">
           <form action="#">

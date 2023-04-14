@@ -29,7 +29,7 @@ function FamilyDetails() {
   // collection(firestore,`users/${username}/basicDetails`)
 
   const writeData =  async () =>{
-   const docRef = doc (firestore,`users/${user.displayName}/familyDetails`,`${user.displayName}`);
+   const docRef = doc (firestore,`users`,`${user.displayName}`);
    await updateDoc(docRef,  {
 
     fathersName:fathersName,
@@ -47,10 +47,10 @@ function FamilyDetails() {
   const getData = async()=>{
 
 
-    const docRef = doc (firestore,`users/${user.displayName}/familyDetails`,`${user.displayName}`);
+    const docRef = doc (firestore,`users`,`${user.displayName}`);
     const docSnap = await getDoc(docRef);
     const familyDetailsData = docSnap.data();
-    console.log(familyDetailsData);
+    // console.log(familyDetailsData);
 
     setFatherName(familyDetailsData.fathersName)
     setMotherName(familyDetailsData.mothersName)
@@ -71,7 +71,7 @@ function FamilyDetails() {
 
   return (
     <div>
-       <div className="container">
+       <div className="formcontainer">
   <div className="title">Family Details</div>
   <div className="content">
     <form action="#">

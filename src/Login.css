@@ -7,12 +7,12 @@
 }
 body{
   height: 100vh;
-  display: flex;
+  /* display: grid; */
   justify-content: center;
   align-items: center;
   padding: 10px;
   /* background: #f2f6ff; */
-  /* background: url("https://as1.ftcdn.net/v2/jpg/04/23/50/24/1000_F_423502413_wFPUF3ti7Ga8Xsx212nyV7Xxd87DbZyN.jpg"); */
+  /* background: url("https://wallpapers.com/images/hd/pastel-background-f16tvnl9d0ad4r7a.jpg"); */
   /* background-repeat: no-repeat;  */
 }
 
@@ -22,6 +22,7 @@ body{
   font-weight: normal;
 }
 .container1{
+  /* margin-left: 20%; */
   max-width: 400px;
   width: 120%;
   background-color: #fff;

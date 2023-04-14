@@ -26,7 +26,7 @@ function EducationDetails() {
 
 
   const writeData =  async () =>{
-   const docRef = doc (firestore,`users/${user.displayName}/educationDetails`,`${user.displayName}`);
+   const docRef = doc (firestore,`users`,`${user.displayName}`);
    await updateDoc(docRef,  {
 
     collegeName:collegeName,
@@ -42,10 +42,10 @@ function EducationDetails() {
   const getData = async()=>{
 
 
-    const docRef = doc (firestore,`users/${user.displayName}/educationDetails`,`${user.displayName}`);
+    const docRef = doc (firestore,`users`,`${user.displayName}`);
     const docSnap = await getDoc(docRef);
     const edDetailsData = docSnap.data();
-    console.log(edDetailsData);
+    // console.log(edDetailsData);
 
     setCollegeName(edDetailsData.collegeName)
     setYop(edDetailsData.yop)
@@ -64,7 +64,7 @@ function EducationDetails() {
 
   return (
     <div>
-        <div className="container">
+        <div className="formcontainer">
   <div className="title">Eductional Details</div>
   <div className="content">
     <form action="#">

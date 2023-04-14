@@ -27,7 +27,7 @@ function BackgroundDetails() {
 
 
   const writeData =  async () =>{
-   const docRef = doc (firestore,`users/${user.displayName}/backgroundDetails`,`${user.displayName}`);
+   const docRef = doc (firestore,`users`,`${user.displayName}`);
    await updateDoc(docRef,  {
 
     caste:caste,
@@ -45,10 +45,10 @@ function BackgroundDetails() {
   const getData = async()=>{
 
 
-    const docRef = doc (firestore,`users/${user.displayName}/backgroundDetails`,`${user.displayName}`);
+    const docRef = doc (firestore,`users`,`${user.displayName}`);
     const docSnap = await getDoc(docRef);
     const bgDetailsData = docSnap.data();
-    console.log(bgDetailsData);
+    // console.log(bgDetailsData);
 
     setCaste(bgDetailsData.caste)
     setRashi(bgDetailsData.rashi)
@@ -68,7 +68,7 @@ function BackgroundDetails() {
 
   return (
     <div>
-       <div className="container">
+       <div className="formcontainer">
   <div className="title">Background Details</div>
   <div className="content">
     <form action="#">

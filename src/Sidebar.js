@@ -8,9 +8,11 @@ function Sidebar(props) {
   const navigate = useNavigate();
 
   const [UN,setUN] = useState("");
+  // const [UF,setUF] = useState("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRD5iROb1TgJ_rcl-6r-68v1yjtID052zxSkw&usqp=CAU");
 
   useEffect(() => {
     setUN(props.username);
+    // setUF(props.photo);
     // eslint-disable-next-linecd
  }, []);
 
@@ -43,41 +45,42 @@ function Sidebar(props) {
     </div>
     <div className="side-content">
       <div className="profile">
-        <div className="profile-img bg-img" style={{backgroundImage: 'url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAVVQ1zRPAbCMH_VAZHKSlSC_IKOHGKEtoDQ&usqp=CAU)'}} />
+        <div className="profile-img bg-img" style={{backgroundImage:'url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSAVVQ1zRPAbCMH_VAZHKSlSC_IKOHGKEtoDQ&usqp=CAU)'}} />
+        {/* <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRD5iROb1TgJ_rcl-6r-68v1yjtID052zxSkw&usqp=CAU" /> */}
         <h4>{UN}</h4>
       
       </div>
-      <div className="side-menu">
+      <div className="side-menu1">
         <ul>
           <li>
             <Link to="/dashboard" className="active">
               <span className="las la-home" />
-              <small>Dashboard</small>
+              <h6 className="smallc" style={{textDecoration:"none"}}>Dashboard</h6>
             </Link>
           </li>
           <li>
             <Link to="/profile">
               <span className="las la-user-alt" />
-              <small>Profile</small>
+              <h6 className="smallc">Update Profile</h6>
             </Link>
           </li>
           <li>
             <Link to="/myconnections">
               <span className="las la-envelope" />
-              <small>My Connections</small>
+              <h6 className="smallc">My Connections</h6>
             </Link>
           </li>
           <li>
             <Link to="/myrequests">
               <span className="las la-clipboard-list" />
-              <small>My Requests</small>
+              <h6 className="smallc">My Interests</h6>
             </Link>
           </li>
         
           <li>
             <Link>
               <span className="las la-tasks" />
-              <small>Logout</small>
+              <h6 className="smallc">Delete Profile</h6>
             </Link>
           </li>
         </ul>

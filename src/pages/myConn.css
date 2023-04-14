@@ -1,6 +1,6 @@
 * {
     padding: 0;
-    margin-top: 20px;
+    /* margin-top: 20px; */
     box-sizing: border-box;
     border: none;
     outline: none;
@@ -20,6 +20,11 @@
 
   .mc{
     margin-left: 7%;
+    
+  }
+  .mcont{
+    margin-top: 100px;
+    
   }
 
 
@@ -61,14 +66,12 @@
     margin-top: 0.5em;
     cursor: pointer;
   }
-
- 
-  
   .button-value {
- 
-    /* width: fit-content; */
-
-
+    border: 2px solid #060047;
+    padding: 0.5em 1.1em;
+    border-radius: 1.5em;
+    background-color: transparent;
+    color: #060047;
     cursor: pointer;
   }
   .active {
@@ -83,8 +86,8 @@
   }
   .card-img-top{
     border-radius: 50%;
-    height: 50px;
-    width: 50px;
+    height: 100px;
+    width: 100px;
     margin: auto;
   }
   .card {
@@ -126,38 +129,6 @@
   .membercontainer{
     margin: 10px 10px 0px ;
   }
-
-  .modal {
-    --mdb-modal-zindex: 1055;
-    --mdb-modal-width:fit-content;
-    --mdb-modal-padding: 1rem;
-    --mdb-modal-margin: 0.5rem;
-    --mdb-modal-bg: #fff;
-    /* --mdb-modal-border-color: var(--mdb-border-color-translucent); */
-    --mdb-modal-border-width: 1px;
-    --mdb-modal-border-radius: 0.5rem;
-    /* --mdb-modal-box-shadow: 0 0.125rem 0.25rem rgba(234, 30, 30, 0.6); */
-    --mdb-modal-inner-border-radius: calc(0.5rem - 1px);
-    --mdb-modal-header-padding-x: 1rem;
-    --mdb-modal-header-padding-y: 1rem;
-    --mdb-modal-header-padding: 1rem 1rem;
-    --mdb-modal-header-border-color: #f5f5f5;
-    --mdb-modal-header-border-width: 2px;
-    --mdb-modal-title-line-height: 1.6;
-    --mdb-modal-footer-gap: 0.5rem;
-    --mdb-modal-footer-border-color: #f5f5f5;
-    --mdb-modal-footer-border-width: 2px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: var(--mdb-modal-zindex);
-    display: none;
-    width: 100%;
-    height: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
-    outline: 0
-}
   @media screen and (max-width: 720px) {
     img {
       max-width: 100%;
@@ -195,11 +166,13 @@
       display: flex;
     }
     .button-value {
-     
-      /* padding: 0.25em 0.7em; */
-    
+      border: 2px solid #060047;
+      padding: 0.25em 0.7em;
+      border-radius: 1.5em;
+      background-color: transparent;
+      color: #060047;
       cursor: pointer;
-    
+      margin: 0.15em;
     }
 
     #search-scontainer input {

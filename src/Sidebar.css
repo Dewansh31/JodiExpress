@@ -7,11 +7,10 @@
 }
 
 * {
-    margin: 0;
-    padding: 0;
+    
     text-decoration: none;
     list-style-type: none;
-    box-sizing: border-box;
+
     font-family: 'Merriweather', sans-serif;
     
 }
@@ -27,13 +26,18 @@
     left: 0;
     bottom: 0;
     top: 0;
-    z-index: 100;
+    /* z-index: 100; */
     background: var(--color-dark);
     transition: left 300ms;
 }
 
-.side-menu ul li:hover {
+.side-menu1 ul li:hover {
     background: #B3005E;
+    
+}
+
+ul{
+    padding-left: 0;
 }
 
 .side-header {
@@ -47,7 +51,9 @@
 
 .side-header h3, side-head span {
     color: #fff;
-    font-weight: 400;
+    font-weight: 150;
+    font-style: bold;
+    /* padding: 1px; */
 }
 
 .side-content {
@@ -99,39 +105,43 @@
 
 .profile h4 {
     color: #fff;
-    font-weight: 500;
+    font-weight: 400;
 }
 
-.profile small {
+.profile .smallc {
     color: #899DC1;
     font-weight: 600;
+    text-decoration: none;
+    font-size: 20px;
 }
 
 
-.side-menu ul {
+.side-menu1 ul {
     text-align: center;
+    text-decoration: none;
 }
 
-.side-menu a {
+.side-menu1 a {
     display: block;
     padding: 1.2rem 0rem;
 }
 
-.side-menu a.active {
+.side-menu1 a.active {
     background: #060047;
 }
 
-.side-menu a.active span, .side-menu a.active small {
+.side-menu1 a.active span, .side-menu1 a.active .smallc {
     color: #fff;
 }
 
-.side-menu a span {
+.side-menu1 a span {
     display: block;
     text-align: center;
+    text-decoration: none;
     font-size: 1.7rem;
 }
 
-.side-menu a span, .side-menu a small {
+.side-menu1 a span, .side-menu1 a .smallc {
     color: #ffffff;
 }
 
@@ -153,12 +163,13 @@
 }
 
 #menu-toggle:checked ~ .sidebar .profile,
-#menu-toggle:checked ~ .sidebar .side-menu a small {
+#menu-toggle:checked ~ .sidebar .side-menu1 a .smallc {
     display: none;
 }
 
-#menu-toggle:checked ~ .sidebar .side-menu a span {
+#menu-toggle:checked ~ .sidebar .side-menu1 a span {
     font-size: 1.3rem;
+    text-decoration: none;
 }
 
 
@@ -192,10 +203,12 @@ header {
 
 .header-content label:first-child span {
     font-size: 1.3rem;
+    text-decoration: none;
 }
 
 .header-content label {
     cursor: pointer;
+    text-decoration: none;
 }
 
 .header-menu {
@@ -258,7 +271,7 @@ main {
     border-bottom: 1px solid #dee2e8;
 }
 
-.page-header h1, .page-header small {
+.page-header h1, .page-header .smallc {
     color: #74767d;
 }
 
@@ -275,12 +288,12 @@ main {
     margin-bottom: 2rem;
 }
 
-.card {
+/* .card {
     box-shadow: 0px 5px 5px -5px rgb(0 0 0 / 10%);
     background: #fff;
     padding: 1rem;
     border-radius: 3px;
-}
+} */
 
 .card-head {
     display: flex;
@@ -299,7 +312,7 @@ main {
     color: var(--text-grey);
 }
 
-.card-progress small {
+.card-progress .smallc {
     color: #777;
     font-size: .8rem;
     font-weight: 600;
@@ -449,7 +462,7 @@ table tbody tr {
     font-size: .95rem;
 }
 
-.client-info small {
+.client-info .smallc {
     color: #777;
 }
 
@@ -509,11 +522,11 @@ table tbody tr {
     }
 
     #menu-toggle:checked ~ .sidebar .profile,
-    #menu-toggle:checked ~ .sidebar .side-menu a small {
+    #menu-toggle:checked ~ .sidebar .side-menu1 a .smallc {
         display: block;
     }
 
-    #menu-toggle:checked ~ .sidebar .side-menu a span {
+    #menu-toggle:checked ~ .sidebar .side-menu1 a span {
         font-size: 1.7rem;
     }
     

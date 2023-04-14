@@ -3,16 +3,29 @@ import './Login.css'
 import { Link, useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth } from "./firebase";
-import { getFirestore } from "firebase/firestore";
+import { addDoc, getFirestore } from "firebase/firestore";
 import { collection, setDoc,doc } from "firebase/firestore"; 
 import { app } from './firebase';
+import {
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  listAll,
+  list,
+} from "firebase/storage";
+import { storage } from "./firebase";
 
 const firestore = getFirestore(app)
+
+// const storageRef = ref(storage);
 
 function Signup() {
 
   const navigate = useNavigate();
    
+  const [imageUpload, setImageUpload] = useState(null);
+  const [imageUrl, setImageUrl] = useState();
+
 
   const [username, setUserName] = useState("");
   const [email, setEmail] = useState("");
@@ -20,110 +33,58 @@ function Signup() {
   const [errorMsg, setErrorMsg] = useState("");
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
 
-  const writeData =  async () =>{
-    const authRef = collection(firestore, `users/${username}/authDetails`);
-    const basicDetailsRef = collection(firestore, `users/${username}/basicDetails`);
-    const educationaldetailsRef = collection(firestore, `users/${username}/educationDetails`);
-    const professionalDetailsRef = collection(firestore, `users/${username}/professionalDetails`);
-    const familyDetailsRef = collection(firestore, `users/${username}/familyDetails`);
-    const backgroundDetailsRef = collection(firestore, `users/${username}/backgroundDetails`);
+ 
+
+
+
+  const writeData =  async (e) =>{
+
+
+    const userRef = collection(firestore, `users`);
+
+    if (imageUpload == null) return;
+    const imageRef = ref(storage, `images`);
+    uploadBytes(imageRef, imageUpload).then((snapshot) => {
+      getDownloadURL(snapshot.ref).then((url) => {
+        setImageUrl(url);
+        console.log(url);
+      });
+    });
 
     
-    // const result = await addDoc(collection(firestore,`users/${username}/authDetails`),{
-    //    username:username,
-    //    email:email,
-    //    password:password,
-
-    //  })
-
-     await setDoc(doc(authRef, `${username}`), {
-       username:username,
-       email:email,
-       password:password,
-   });
-
-      await setDoc(doc(basicDetailsRef, `${username}`), {
-            fullName:"",
-            dob:"",
-            pob:"",
-            gender:"",
-            phone:"",
-            height:""
-    });
-
-    await setDoc(doc(educationaldetailsRef, `${username}`), {
-        collegeName:"",
-        yop:"",
-        degree:""
-    });
-
-    await setDoc(doc(professionalDetailsRef, `${username}`), {
-        workplace:"",
-        income:"",
-        contact:""
-    });
-
-    await setDoc(doc(familyDetailsRef, `${username}`), {
-          fathersName:"",
-          mothersName:"",
-          fatherOccupation:"",
-          motherOccupation:"",
-          familyLives:"",
-          familyType:""
-    });
-
-    await setDoc(doc(backgroundDetailsRef, `${username}`), {
-      religion:"",
-      caste:"",
-      subcaste:"",
-      rashi:""
-    });
+  await setDoc(doc(userRef, `${username}`), {
+    username:username,
+    email:email,
+    password:password,
+    fullName:"",
+    dob:"",
+    pob:"",
+    gender:"",
+    phone:"",
+    height:"",
+    collegeName:"",
+    yop:"",
+    degree:"",
+    workplace:"",
+    income:"",
+    contact:"",
+    fathersName:"",
+    mothersName:"",
+    fatherOccupation:"",
+    motherOccupation:"",
+    familyLives:"",
+    familyType:"",
+    religion:"",
+    caste:"",
+    subcaste:"",
+    rashi:"",
+    imgurl:imageUrl
+});
 
 
-    //  const result1 = await addDoc(collection(firestore,`users/${username}/basicDetails`),{
-    //   fullName:"",
-    //   dob:"",
-    //   pob:"",
-    //   gender:"",
-    //   phone:"",
-    //   height:""
 
-    // })
 
-    // const result2 = await addDoc(collection(firestore,`users/${username}/educationDetails`),{
-      // collegeName:"",
-      // yop:"",
-      // degree:""
-
-    // })
-
-    // const result3 = await addDoc(collection(firestore,`users/${username}/professionalDetails`),{
-    //   workplace:"",
-    //   income:"",
-    //   contact:""
-
-    // })
-
-    // const result4 = await addDoc(collection(firestore,`users/${username}/familyDetails`),{
-    //   fathersName:"",
-    //   mothersName:"",
-    //   fatherOccupation:"",
-    //   motherOccupation:"",
-    //   familyLives:"",
-    //   familyType:""
-
-    // })
-
-    // const result5 = await addDoc(collection(firestore,`users/${username}/backgroundDetails`),{
-    //   religion:"",
-    //   caste:"",
-    //   subcaste:"",
-    //   rashi:""
-     
-
-    // })
-
-    //  console.log(result);
+  
 
    }
 
@@ -131,7 +92,7 @@ function Signup() {
   let handleSubmit =  (e) => {
     e.preventDefault();
 
-    if (!username || !email || !password) {
+    if (!username || !email || !password ) {
       setErrorMsg("Fill all fields");
       return;
     }
@@ -144,13 +105,15 @@ function Signup() {
       const user = res.user;
       writeData();
 
+    
       await updateProfile(user, {
         displayName: username,
+        // photoURL: imageUrl
       });
 
       
-     console.log(username);
-     console.log(email);
+    //  console.log(username);
+    //  console.log(email);
   
       navigate("/");
     })
@@ -189,6 +152,14 @@ function Signup() {
             <input type="password" placeholder="Enter your password" required value={password}  onChange={(e) => setPassword(e.target.value)} name="password"/>
           </div>
 
+          <input type="file"  onChange={(event) => {
+          setImageUpload(event.target.files[0]);
+          }} />
+
+
+          
+      
+
           <p className="errormsg">{errorMsg}</p>
 
           <div className="button">
@@ -197,6 +168,10 @@ function Signup() {
               <Link to="/login" className="text login-link">Login</Link>
             </span>
           </div>
+
+          {/* <button type='submit' onClick={uploadImage}> upload </button> <br /> */}
+
+
         </div></form>
     </div>
   </div>
