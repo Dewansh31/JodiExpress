@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/JodiExpress/static/css/main.8f15eb52.css",
-    "main.js": "/JodiExpress/static/js/main.ef5168ae.js",
+    "main.css": "/JodiExpress/static/css/main.b94ae1a7.css",
+    "main.js": "/JodiExpress/static/js/main.7523610d.js",
     "index.html": "/JodiExpress/index.html",
-    "main.8f15eb52.css.map": "/JodiExpress/static/css/main.8f15eb52.css.map",
-    "main.ef5168ae.js.map": "/JodiExpress/static/js/main.ef5168ae.js.map"
+    "main.b94ae1a7.css.map": "/JodiExpress/static/css/main.b94ae1a7.css.map",
+    "main.7523610d.js.map": "/JodiExpress/static/js/main.7523610d.js.map"
   },
   "entrypoints": [
-    "static/css/main.8f15eb52.css",
-    "static/js/main.ef5168ae.js"
+    "static/css/main.b94ae1a7.css",
+    "static/js/main.7523610d.js"
   ]
 }
