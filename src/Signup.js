@@ -6,14 +6,14 @@ import { auth } from "./firebase";
 import { addDoc, getFirestore } from "firebase/firestore";
 import { collection, setDoc,doc } from "firebase/firestore"; 
 import { app } from './firebase';
-import {
-  ref,
-  uploadBytes,
-  getDownloadURL,
-  listAll,
-  list,
-} from "firebase/storage";
-import { storage } from "./firebase";
+// import {
+//   ref,
+//   uploadBytes,
+//   getDownloadURL,
+//   listAll,
+//   list,
+// } from "firebase/storage";
+// import { storage } from "./firebase";
 
 const firestore = getFirestore(app)
 
@@ -23,8 +23,8 @@ function Signup() {
 
   const navigate = useNavigate();
    
-  const [imageUpload, setImageUpload] = useState(null);
-  const [imageUrl, setImageUrl] = useState();
+  // const [imageUpload, setImageUpload] = useState(null);
+  // const [imageUrl, setImageUrl] = useState();
 
 
   const [username, setUserName] = useState("");
@@ -42,14 +42,14 @@ function Signup() {
 
     const userRef = collection(firestore, `users`);
 
-    if (imageUpload == null) return;
-    const imageRef = ref(storage, `images`);
-    uploadBytes(imageRef, imageUpload).then((snapshot) => {
-      getDownloadURL(snapshot.ref).then((url) => {
-        setImageUrl(url);
-        console.log(url);
-      });
-    });
+    // if (imageUpload == null) return;
+    // const imageRef = ref(storage, `images`);
+    // uploadBytes(imageRef, imageUpload).then((snapshot) => {
+    //   getDownloadURL(snapshot.ref).then((url) => {
+    //     setImageUrl(url);
+    //     console.log(url);
+    //   });
+    // });
 
     
   await setDoc(doc(userRef, `${username}`), {
@@ -78,7 +78,7 @@ function Signup() {
     caste:"",
     subcaste:"",
     rashi:"",
-    imgurl:imageUrl
+    // imgurl:imageUrl
 });
 
 
@@ -152,9 +152,9 @@ function Signup() {
             <input type="password" placeholder="Enter your password" required value={password}  onChange={(e) => setPassword(e.target.value)} name="password"/>
           </div>
 
-          <input type="file"  onChange={(event) => {
+          {/* <input type="file"  onChange={(event) => {
           setImageUpload(event.target.files[0]);
-          }} />
+          }} /> */}
 
 
           

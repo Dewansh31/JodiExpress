@@ -2,26 +2,36 @@ import React, { useState,useEffect } from 'react'
 import './Sidebar.css'
 import { Link ,useNavigate} from 'react-router-dom'
 import { getAuth, signOut } from "firebase/auth";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Sidebar(props) {
+
+  const toastSuccess = () => toast.success('Logged out successfully!');
+
+  const delay = ms => new Promise(
+    resolve => setTimeout(resolve, ms)
+  );
 
   const navigate = useNavigate();
 
   const [UN,setUN] = useState("");
-  // const [UF,setUF] = useState("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRD5iROb1TgJ_rcl-6r-68v1yjtID052zxSkw&usqp=CAU");
-
+ 
   useEffect(() => {
     setUN(props.username);
-    // setUF(props.photo);
-    // eslint-disable-next-linecd
+  
  }, []);
 
 
   
 
-  const handleLogout = () =>{
+  const handleLogout = async () =>{
+ 
+    toastSuccess();
 
     const auth = getAuth();
+
+    await delay(1500);
 
     signOut(auth).then(() => {
       // console.log("logged out!");
@@ -102,11 +112,18 @@ function Sidebar(props) {
             <div className="bg-img" style={{backgroundImage: 'url(img/1.jpeg)'}} />
             <span className="las la-power-off" />
             <span><b>Logout</b></span>
+
+            
+
           </div>
         </div>
       </div>
     </header>
 
+    <ToastContainer
+              position="top-right"
+              autoClose={3000}
+            />
    
   </div>
 </div>

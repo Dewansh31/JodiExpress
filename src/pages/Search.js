@@ -378,7 +378,8 @@ function Search() {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <div className="container rounded bg-white mt-5 mb-5  border border-dark">
+        <div>
+      <div className="container rounded bg-white mt-5 mb-5">
         <div className="row">
           <div className="col-md-3 border-right">
             <div className="d-flex flex-column align-items-center text-center">
@@ -392,79 +393,69 @@ function Search() {
               <span> </span>
             </div>
           </div>
-          <div className="col-md-5 border-right">
-            <div className="p-3 py-5">
+          <div className="col-md-4 border-right">
+            <div className="p-2 py-2">
               <div className="d-flex justify-content-between align-items-center">
-                <h5 className="text-right">Basic Details</h5>
+                <u><h5 className="text-right" style={{fontWeight:"bold",fontFamily:"Palatino",color:"red"}}>Basic Details</h5></u>
               </div>
               <div className="row mt-2">
                 <div className="col-md-6">
-                  Full Name: xyzfg
+                  <h6 style={{fontFamily:"Palatino"}}>Full Name: {selected.fullName}</h6>
                  
                 </div>
                 <div className="col-md-6">
-                  DOB : 22/7/2021
+                  <h6 style={{fontFamily:"Palatino"}}>DOB : {selected.dob}</h6>
                   
                 </div>
                 <div className="col-md-6">
-                 Birth Place: Rasmada
-                  {/* <input
-                    type="text"
-                    className="form-control"
-                    placeholder="enter phone number"
-                    defaultValue
-                  /> */}
-                </div>
-                <div className="col-md-6">
-                Gender: Male
+                 <h6 style={{fontFamily:"Palatino"}}>Birth Place: {selected.pob}</h6>
                  
                 </div>
                 <div className="col-md-6">
-                 Phone Number: 9874561233
+                <h6 style={{fontFamily:"Palatino"}}>Gender: {selected.gender}</h6>
+                 
+                </div>
+                <div className="col-md-6">
+                 <h6 style={{fontFamily:"Palatino"}}>Phone Number: {selected.contact}</h6>
                   
                 </div>
                 <div className="col-md-6">
-                Height: 6ft
+                <h6 style={{fontFamily:"Palatino"}}>Height: {selected.height}</h6>
                   
                 </div> 
               </div>
               <div className="d-flex justify-content-between align-items-center mt-3">
-                <h5 className="text-right">Eductional Details</h5>
+                <u><h5 className="text-right" style={{fontWeight:"bold",fontFamily:"Palatino",color:"red"}}>Eductional Details</h5></u>
               </div>
               <div className="row mt-2">
                 <div className="col-md-6">
-                College Name : CSIT
+                <h6 style={{fontFamily:"Palatino"}}>College Name : {selected.collegeName}</h6>
                  
                 </div>
                 <div className="col-md-6">
-                  Year Of Passing: 2024
-                  {/* <input
-                    type="text"
-                    className="form-control"
-                    defaultValue
-                    placeholder="surname"
-                  /> */}
+                  <h6 style={{fontFamily:"Palatino"}}>Year Of Passing: {selected.yop}</h6>
+                
                 </div>
                 <div className="col-md-6">
-                Degree: B.Tech
+                <h6 style={{fontFamily:"Palatino"}}>Degree: {selected.degree}</h6>
                  
                 </div>  
               </div>
 
               <div className="d-flex justify-content-between align-items-center mt-3">
-                <h5 className="text-right">Professional Details</h5>
+                <u><h5 className="text-right" style={{fontWeight:"bold",fontFamily:"Palatino",color:"red"}}>Professional Details</h5></u>
               </div>
               <div className="row mt-2">
                 <div className="col-md-6">
-                  Employed In: xyz
+                  <h6 style={{fontFamily:"Palatino"}}>Employed In: {selected.workplace}</h6>
                   
                 </div>
                 <div className="col-md-6">
-                  Annual Income: 10000
+                  <h6 style={{fontFamily:"Palatino"}}>Annual Income: {selected.income}</h6>
                  
                 </div>
                 <div className="col-md-6">
-                 Phone Number: 1478529632
+                 <h6 style={{fontFamily:"Palatino"}}>Phone Number: {selected.contact}</h6>
                   
                 </div>  
               </div>
@@ -473,54 +464,54 @@ function Search() {
              
             </div>
           </div>
-          <div className="col-md-4">
-            <div className="p-3 py-5">
+          <div className="col-md-5">
+            <div className="p-2 py-2">
               <div className="d-flex justify-content-between align-items-center experience">
-                <h5><span>Background Details</span></h5>
+                <u><h5 style={{fontWeight:"bold",fontFamily:"Palatino",color:"red"}}><span>Background Details</span></h5></u>
               </div>
               <div className="row mt-2">
                 <div className="col-md-6">
-                 Religion: Hindu
+                 <h6 style={{fontFamily:"Palatino"}}>Religion: {selected.religion}</h6>
                   
                 </div>
                 <div className="col-md-6">
-                  Caste: kgflk
+                  <h6 style={{fontFamily:"Palatino"}} >Caste: {selected.caste}</h6>
                  
                 </div>
                 <div className="col-md-6">
-                  Sub Caste: dgdfd
+                  <h6 style={{fontFamily:"Palatino"}}>Sub Caste: {selected.subcaste}</h6>
                   
                 </div>
                 <div className="col-md-6">
-                 Rashi: dgfdf
+                 <h6 style={{fontFamily:"Palatino"}}>Rashi: {selected.rashi}</h6>
                 
                 </div>
                 <div className="d-flex justify-content-between align-items-center experience mt-3">
-                <h5><span>Family Details</span></h5>
+                <u><h5 style={{fontWeight:"bold",fontFamily:"Palatino",color:"red"}}><span>Family Details</span></h5></u>
               </div>
               <div className="row mt-2">
                 <div className="col-md-6">
-                 Father Name: abfd
+                 <h6 style={{fontFamily:"Palatino"}}>Father Name: {selected.fathersName}</h6>
                   
                 </div>
                 <div className="col-md-6">
-                  Mother Name: abfd
+                  <h6 style={{fontFamily:"Palatino"}}>Mother Name: {selected.mothersName}</h6>
                  
                 </div>
                 <div className="col-md-6">
-                 Father Occupation: abfd
+                 <h6 style={{fontFamily:"Palatino"}}>Father Occupation:jdfsfs</h6>
                 
                 </div>
                 <div className="col-md-6">
-                 Mother Occupation: abfd
+                 <h6 style={{fontFamily:"Palatino"}}>Mother Occupation: abfd</h6>
                  
                 </div>
                 <div className="col-md-6">
-                Family Type: abfd
+                <h6 style={{fontFamily:"Palatino"}}>Family Type: abfd</h6>
                  
                 </div>
                 <div className="col-md-6">
-                  Family Lives: abfd
+                  <h6 style={{fontFamily:"Palatino"}}>Family Lives: abfd</h6>
                  
                 </div>
                 </div>
@@ -530,6 +521,8 @@ function Search() {
           </div>
         </div>
       </div>
+    
+    </div>
         </Modal.Body>
       </Modal>
 
