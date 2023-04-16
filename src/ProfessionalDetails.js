@@ -4,10 +4,15 @@ import { getFirestore } from "firebase/firestore";
 import {doc,updateDoc,getDoc } from "firebase/firestore"; 
 import { app } from './firebase';
 import { getAuth } from "firebase/auth";
+import Alert from 'react-bootstrap/Alert';
+import Button from 'react-bootstrap/Button';
 
 const firestore = getFirestore(app)
 
 function ProfessionalDetails() {
+
+  const [show, setShow] = useState(false);
+
 
   const [workplace,setWorkPlace] = useState("");
   const [income,setIncome] = useState("");
@@ -35,6 +40,8 @@ function ProfessionalDetails() {
     
       
     })
+
+
    
    
   
@@ -52,6 +59,7 @@ function ProfessionalDetails() {
     setIncome(proDetailsData.income)
     setContact(proDetailsData.contact)
     
+   
 
   }
 
@@ -60,6 +68,7 @@ function ProfessionalDetails() {
     e.preventDefault();
 
     writeData();
+    setShow(true)
     getData();
   }
 
@@ -91,6 +100,16 @@ function ProfessionalDetails() {
             </div>
             <div className="button">
               <input type="submit" defaultValue="Register" onClick={handleSubmit}/>
+              <Alert show={show} variant="success" style={{marginTop:"-20rem"}}>
+        <h5>Professional details updated successfully!</h5>
+        
+        <hr />
+        <div className="d-flex justify-content-end">
+          <Button onClick={() => setShow(false)} variant="outline-success">
+            Close
+          </Button>
+        </div>
+      </Alert>
             </div>
           </form>
         </div>

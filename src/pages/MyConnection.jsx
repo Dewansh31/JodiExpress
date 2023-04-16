@@ -16,7 +16,7 @@ const MyConnection = (props) => {
 
     <div className='container mc mcont'>
 
-     <Sidebar />
+     <Sidebar username={props.name} />
 
      <div >
 

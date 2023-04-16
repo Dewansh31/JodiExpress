@@ -4,10 +4,16 @@ import { getFirestore } from "firebase/firestore";
 import {doc,updateDoc,getDoc } from "firebase/firestore"; 
 import { app } from './firebase';
 import { getAuth } from "firebase/auth";
+import Alert from 'react-bootstrap/Alert';
+import Button from 'react-bootstrap/Button';
 
 const firestore = getFirestore(app);
 
 function BackgroundDetails() {
+
+  const [show, setShow] = useState(false);
+
+ 
 
   const [caste,setCaste] = useState("");
   const [rashi,setRashi] = useState("");
@@ -38,6 +44,7 @@ function BackgroundDetails() {
       
     })
    
+
    
   
   }
@@ -55,6 +62,7 @@ function BackgroundDetails() {
     setReligion(bgDetailsData.religion)
     setSubCaste(bgDetailsData.subcaste)
     
+  
 
   }
 
@@ -63,6 +71,7 @@ function BackgroundDetails() {
     e.preventDefault();
 
     writeData();
+    setShow(true)
     getData();
   }
 
@@ -94,6 +103,16 @@ function BackgroundDetails() {
       </div>
       <div className="button">
         <input type="submit" defaultValue="Register" onClick={handleSubmit}/>
+        <Alert show={show} variant="success" style={{marginTop:"-20rem"}}>
+        <h5>Background details updated successfully!</h5>
+        
+        <hr />
+        <div className="d-flex justify-content-end">
+          <Button onClick={() => setShow(false)} variant="outline-success">
+            Close
+          </Button>
+        </div>
+      </Alert>
       </div>
     </form>
   </div>

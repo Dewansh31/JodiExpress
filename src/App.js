@@ -12,7 +12,7 @@ import Login from './Login'
 import { useState,useEffect } from 'react';
 import { auth } from "./firebase";
 import ErrorPage from './ErrorPage';
-import DetailPage from './DetailPage';
+import DeletePage from './DeletePage';
 
 
 function App() {
@@ -71,7 +71,7 @@ function App() {
 		<Route path="/educationaldetails" element={<EducationDetails name={userName} />} />
 		<Route path="/myconnections" element={<MyConnection  name={userName}/>} />
 		<Route path="/myrequests" element={<MyRequests name={userName} />} />
-        <Route path="/detailpage" element={<DetailPage name={userName} />} />
+        <Route path="/delete" element={<DeletePage name={userName} />} />
 		<Route path="*" element={<ErrorPage name={userName}/>} />	
 		
 		</>

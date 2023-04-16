@@ -15,6 +15,9 @@ import { app } from './firebase';
 // } from "firebase/storage";
 // import { storage } from "./firebase";
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const firestore = getFirestore(app)
 
 // const storageRef = ref(storage);
@@ -22,10 +25,19 @@ const firestore = getFirestore(app)
 function Signup() {
 
   const navigate = useNavigate();
+
+  const toastSuccess = () => toast.success('Signed up successfully!');
+  const toastError = () => toast.error('Signup failed!');
+  const validationError = () => toast.error('Please fill all fields!');
+  const validation2Error = () => toast.error('Invalid credentials!');
    
   // const [imageUpload, setImageUpload] = useState(null);
   // const [imageUrl, setImageUrl] = useState();
 
+
+  const delay = ms => new Promise(
+    resolve => setTimeout(resolve, ms)
+  );
 
   const [username, setUserName] = useState("");
   const [email, setEmail] = useState("");
@@ -102,6 +114,7 @@ function Signup() {
     createUserWithEmailAndPassword(auth, email,password)
     .then(async (res) => {
       setSubmitButtonDisabled(false);
+      toastSuccess()
       const user = res.user;
       writeData();
 
@@ -111,7 +124,8 @@ function Signup() {
         // photoURL: imageUrl
       });
 
-      
+      await delay(1500);
+
     //  console.log(username);
     //  console.log(email);
   
@@ -119,7 +133,8 @@ function Signup() {
     })
     .catch((err) => {
       setSubmitButtonDisabled(false);
-      setErrorMsg(err.message);
+      // setErrorMsg(err.message);
+      toastError();
     });
 
     //  console.log(username);
@@ -164,6 +179,13 @@ function Signup() {
 
           <div className="button">
             <input type="submit" defaultValue="Register" disabled={submitButtonDisabled} onClick={handleSubmit} /><br /><br/>
+
+            
+            <ToastContainer
+              position="top-right"
+              autoClose={5000}
+            />
+
             <span className="text">Already Have An Account? &nbsp;
               <Link to="/login" className="text login-link">Login</Link>
             </span>

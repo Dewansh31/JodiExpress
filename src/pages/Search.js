@@ -1,26 +1,27 @@
 import React,{useState,useEffect} from 'react'
 import './Search.css';
-import { doc, getDoc } from "firebase/firestore";
+// import { doc, getDoc } from "firebase/firestore";
 import { app } from '../firebase';
-import { getAuth } from "firebase/auth";
+// import { getAuth } from "firebase/auth";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
-import { async } from '@firebase/util';
-import {
-  MDBCard,
-  MDBCardBody,
-  MDBCardTitle,
-  MDBCardText,
-  MDBCardImage,
-  MDBBtn,
-  MDBRipple
-} from 'mdb-react-ui-kit';
+// import { async } from '@firebase/util';
+// import {
+//   MDBCard,
+//   MDBCardBody,
+//   MDBCardTitle,
+//   MDBCardText,
+//   MDBCardImage,
+//   MDBBtn,
+//   MDBRipple
+// } from 'mdb-react-ui-kit';
 import Select from 'react-select';
-import { MDBRow } from 'mdb-react-ui-kit';
-import { Link } from 'react-router-dom';
-import DetailPage from '../DetailPage';
+// import { MDBRow } from 'mdb-react-ui-kit';
+// import { Link } from 'react-router-dom';
+// import DetailPage from '../DetailPage';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import { MDBSpinner } from 'mdb-react-ui-kit';
 
 
 const db = getFirestore(app)
@@ -148,6 +149,8 @@ function Search() {
   const [income, setIncome] = useState(null);
   const [selected,setSelected] = useState("");
 
+  const [V,setV] = useState(true);
+
 
   const handleSelected = (u) =>{
     setSelected(u);
@@ -228,11 +231,7 @@ function Search() {
                                              );
 
     const querySnapshot = await getDocs(q);
-    // querySnapshot.forEach((doc) => {
-    //   // doc.data() is never undefined for query doc snapshots
-    //   console.log(doc.data());
-    // });
-
+   
     const tmp = [];
     querySnapshot.forEach((doc) => tmp.push({ ...doc.data(), pid: doc.id }));
 
@@ -270,7 +269,7 @@ function Search() {
     <button id="searchbtn" type='submit' onClick={applyFilter} >Search</button>
     <button id="clr" type='submit' onClick={clearFilter} >Clear Filter</button>
   </div>
-  <div id="buttons d-flex">
+  <div id="buttons d-flex flex-row">
     
    
      <Select
@@ -320,15 +319,30 @@ function Search() {
    <div className="container membercontainer">
   <div className="row row-cols-1  row-cols-md-4 ">
 
+
+   {
+      members.length === 0 &&
+  (
+    <div class="d-flex justify-content-center">
+    <div class="spinner-border" role="status">
+      <span class="visually-hidden">Loading...</span>
+    </div>
+  </div>
+
+
+
+  )
+      
+   }
+
   { members.map((item) => (
  
     <div className="col-sm-4" >
       <div className="card " style={{width: '100%'}}>
         <img src="https://www.w3schools.com/howto/img_avatar.png"  className="card-img-top" alt="..." />
         <div className="card-body">
-          <h5 className="card-title">{item.username}</h5>
+          <h5 className="card-title"> {item.fullName}</h5>
           <p className="card-text">
-          Full Name : {item.fullName} <br/>
           Qualification : {item.degree} <br/>
           Gender : {item.gender} <br/>
           Religion : {item.religion} <br/>
@@ -336,34 +350,16 @@ function Search() {
       
           </p>
 
-      {/* <button onClick={() => handleSelected(item)}>show</button> */}
 
-      <Button variant="primary" onClick={() => handleSelected(item)}>Full Details</Button>
+      <div >
 
-      {/* <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>{selected.username}</Modal.Title>
-        </Modal.Header>
-        <Modal.Body> */}
-{/* 
-          Full Name : {selected.fullName} <br/>
-          Qualification : {selected.degree} <br/>
-          Gender : {selected.gender} <br/>
-          Religion : {selected.religion} <br/>
-          Caste : {selected.caste} */}
+      <Button className='detailBtn' variant="primary" onClick={() => handleSelected(item)}>Full Details</Button>
+      <Button className="connectBtn" variant="secondary">  connect 🔗 </Button>
 
-        
-{/*           
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
-      </Modal> */}
+        </div>
+      
+
+  
 
      <Modal
         show={show}
@@ -499,19 +495,19 @@ function Search() {
                  
                 </div>
                 <div className="col-md-6">
-                 <h6 style={{fontFamily:"Palatino"}}>Father Occupation:jdfsfs</h6>
+                 <h6 style={{fontFamily:"Palatino"}}>Father Occupation:{selected.fatherOccupation}</h6>
                 
                 </div>
                 <div className="col-md-6">
-                 <h6 style={{fontFamily:"Palatino"}}>Mother Occupation: abfd</h6>
+                 <h6 style={{fontFamily:"Palatino"}}>Mother Occupation: {selected.motherOccupation}</h6>
                  
                 </div>
                 <div className="col-md-6">
-                <h6 style={{fontFamily:"Palatino"}}>Family Type: abfd</h6>
+                <h6 style={{fontFamily:"Palatino"}}>Family Type:{selected.familyType}</h6>
                  
                 </div>
                 <div className="col-md-6">
-                  <h6 style={{fontFamily:"Palatino"}}>Family Lives: abfd</h6>
+                  <h6 style={{fontFamily:"Palatino"}}>Family Lives: {selected.familyLives}</h6>
                  
                 </div>
                 </div>

@@ -4,10 +4,16 @@ import { getFirestore } from "firebase/firestore";
 import {doc,updateDoc,getDoc } from "firebase/firestore"; 
 import { app } from './firebase';
 import { getAuth } from "firebase/auth";
+import Alert from 'react-bootstrap/Alert';
+import Button from 'react-bootstrap/Button';
 
 const firestore = getFirestore(app)
 
 function FamilyDetails() {
+
+  const [show, setShow] = useState(false);
+
+
 
   const [fathersName,setFatherName] = useState("");
   const [mothersName,setMotherName] = useState("");
@@ -59,6 +65,8 @@ function FamilyDetails() {
     setFLives(familyDetailsData.familyLives)
     setFType(familyDetailsData.familyType)
 
+
+
   }
 
 
@@ -66,6 +74,7 @@ function FamilyDetails() {
     e.preventDefault();
 
     writeData();
+    setShow(true)
     getData();
   }
 
@@ -104,6 +113,17 @@ function FamilyDetails() {
       </div>
       <div className="button">
         <input type="submit" defaultValue="Register" onClick={handleSubmit} />
+        <Alert show={show} variant="success" style={{marginTop:"-20rem"}}>
+        <h5>Family details updated successfully!</h5>
+        
+        <hr />
+        <div className="d-flex justify-content-end">
+          <Button onClick={() => setShow(false)} variant="outline-success">
+            Close
+          </Button>
+        </div>
+      </Alert>
+
       </div>
     </form>
   </div>

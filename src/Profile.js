@@ -4,10 +4,17 @@ import { getFirestore } from "firebase/firestore";
 import {doc,updateDoc,getDoc } from "firebase/firestore"; 
 import { app } from './firebase';
 import { getAuth } from "firebase/auth";
+import Alert from 'react-bootstrap/Alert';
+import Button from 'react-bootstrap/Button';
+
 
 const firestore = getFirestore(app)
 
 function Profile(props) {
+
+
+  const [show, setShow] = useState(false);
+
 
   const [fullName,setFullName] = useState("");
   const [dob,setDOB] = useState("");
@@ -26,7 +33,7 @@ function Profile(props) {
   const auth = getAuth();
   const user = auth.currentUser;
 
-  // collection(firestore,`users/${username}/basicDetails`)
+ 
 
   const writeData =  async () =>{
    const docRef = doc (firestore,`users`,`${user.displayName}`);
@@ -39,25 +46,8 @@ function Profile(props) {
       height:height
     })
    
-   
-   
-  //  {
-  //   fullName:fullName,
-  //   dob:dob,
-  //   pob:pob,
-  //   gender:gender,
-  //   phone:phone,
-  //   height:height
-  // }
 
-    // setFullName("")
-    // setDOB("")
-    // setPOB("")
-    // setGender("")
-    // setPhone("")
-    // setHeight("")
-
-    // console.log(result);
+  
   }
 
   const getData = async()=>{
@@ -82,6 +72,7 @@ function Profile(props) {
     e.preventDefault();
 
     writeData();
+    setShow(true)
     getData();
   }
   
@@ -125,6 +116,19 @@ function Profile(props) {
       
       <div className="button">
         <input type="submit" defaultValue="Register" onClick={handleSubmit}/>
+
+        <Alert show={show} variant="success" style={{marginTop:"-20rem"}}>
+        <h5>Basic details updated successfully!</h5>
+        
+        <hr />
+        <div className="d-flex justify-content-end">
+          <Button onClick={() => setShow(false)} variant="outline-success">
+            Close
+          </Button>
+        </div>
+      </Alert>
+
+
       </div>
     </form>
   </div>

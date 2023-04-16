@@ -4,10 +4,15 @@ import { getFirestore } from "firebase/firestore";
 import {doc,updateDoc,getDoc } from "firebase/firestore"; 
 import { app } from './firebase';
 import { getAuth } from "firebase/auth";
+import Alert from 'react-bootstrap/Alert';
+import Button from 'react-bootstrap/Button';
 
 const firestore = getFirestore(app)
 
 function EducationDetails() {
+
+  const [show, setShow] = useState(false);
+
 
   const [collegeName,setCollegeName] = useState("");
   const [yop,setYop] = useState("");
@@ -50,6 +55,8 @@ function EducationDetails() {
     setCollegeName(edDetailsData.collegeName)
     setYop(edDetailsData.yop)
     setDegree(edDetailsData.degree)
+
+
     
 
   }
@@ -59,6 +66,7 @@ function EducationDetails() {
     e.preventDefault();
 
     writeData();
+    setShow(true)
     getData();
   }
 
@@ -84,6 +92,18 @@ function EducationDetails() {
       </div>
       <div className="button">
         <input type="submit" defaultValue="Register" onClick={handleSubmit} />
+
+        <Alert show={show} variant="success" style={{marginTop:"-20rem"}}>
+        <h5>Educational details updated successfully!</h5>
+        
+        <hr />
+        <div className="d-flex justify-content-end">
+          <Button onClick={() => setShow(false)} variant="outline-success">
+            Close
+          </Button>
+        </div>
+      </Alert>
+
       </div>
     </form>
   </div>
