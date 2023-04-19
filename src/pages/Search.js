@@ -3,8 +3,10 @@ import './Search.css';
 // import { doc, getDoc } from "firebase/firestore";
 import { app } from '../firebase';
 // import { getAuth } from "firebase/auth";
-import { collection, query, where, getDocs } from "firebase/firestore";
+import { collection, query, where, getDocs  } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
+import { auth } from "../firebase";
+import { getAuth } from "firebase/auth";
 // import { async } from '@firebase/util';
 // import {
 //   MDBCard,
@@ -22,6 +24,8 @@ import Select from 'react-select';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { MDBSpinner } from 'mdb-react-ui-kit';
+import {doc,updateDoc,getDoc } from "firebase/firestore"; 
+import {arrayUnion, arrayRemove } from "firebase/firestore";
 
 
 const db = getFirestore(app)
@@ -149,15 +153,54 @@ function Search() {
   const [income, setIncome] = useState(null);
   const [selected,setSelected] = useState("");
 
-  const [V,setV] = useState(true);
 
+ 
 
   const handleSelected = (u) =>{
     setSelected(u);
     setShow(true);
    
-    // console.log("selected user", u.username);
+   
   }
+
+  // const getsentmembers = async () => {
+
+  //   const auth = getAuth();
+  //   const sender = auth.currentUser;
+  //   return await getDocs(collection(db, `users/${sender.username}/sentrequests`));
+   
+  // };
+
+
+  const handleConnect = async(r) =>{
+
+
+    const auth = getAuth();
+    const sender = auth.currentUser;
+
+    console.log(`sender : ${sender.displayName}`);
+    console.log(`receiver : ${r.username}`);
+
+    // receiving
+     const receivedRef = doc (db,`users`,`${r.username}`);
+      await  updateDoc(receivedRef,  {
+        receivedrequests: arrayUnion(sender.displayName)
+       })
+    
+
+       //sending
+      const sendRef = doc (db,`users`,`${sender.displayName}`);
+        await updateDoc(sendRef,  {
+        sentrequests: arrayUnion(r.username)
+       })
+
+
+  }
+
+  
+
+
+
 
   // handle onChange event of the dropdown
   const handleChange = e => {
@@ -199,7 +242,7 @@ function Search() {
 
 
   const getAllmembers = async () => {
-    return await getDocs(collection(db, "users"),where);
+    return await getDocs(collection(db, "users"));
    
   };
 
@@ -251,10 +294,13 @@ function Search() {
   }
 
 
+
+
  
 
   useEffect(() => {
     fetchAllmembers();
+    // fetchsetmembers();
   }, []);
 
 
@@ -354,7 +400,7 @@ function Search() {
       <div >
 
       <Button className='detailBtn' variant="primary" onClick={() => handleSelected(item)}>Full Details</Button>
-      <Button className="connectBtn" variant="secondary">  connect 🔗 </Button>
+      <h6 className="connectBtn" variant="secondary" onClick={() => handleConnect(item)}>  connect  </h6>
 
         </div>
       

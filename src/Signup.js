@@ -90,6 +90,9 @@ function Signup() {
     caste:"",
     subcaste:"",
     rashi:"",
+    connections:[],
+    sentrequests:[],
+    receivedrequests:[]
     // imgurl:imageUrl
 });
 

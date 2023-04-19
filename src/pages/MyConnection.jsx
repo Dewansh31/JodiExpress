@@ -1,17 +1,43 @@
 import React from "react";
 import Sidebar from "../Sidebar";
 import "./myConn.css";
-// import "../Profile.css";
+import {doc,updateDoc,getDoc } from "firebase/firestore"; 
+import { getFirestore, collection, query, getDocs } from 'firebase/firestore'
+import { app } from '../firebase';
+import { auth } from "../firebase";
+import { getAuth } from "firebase/auth";
+import { useEffect, useState } from "react";
 
-import {
-  MDBBadge,
-  MDBBtn,
-  MDBTable,
-  MDBTableHead,
-  MDBTableBody,
-} from "mdb-react-ui-kit";
+const db = getFirestore(app)
 
 const MyConnection = (props) => {
+
+  useEffect(() => {
+  fetchConnections()  
+  }, []);
+
+  
+  const [mconnections,setMConnections] = useState([]);
+  
+  const fetchConnections = async () => {
+   
+    const auth = getAuth();
+    const sender = auth.currentUser;
+  
+    // const firestore = getFirestore()
+    const docRef = doc(db, `users`, sender.displayName)
+    const docSnap = await getDoc(docRef)
+  
+    const data = docSnap.exists() ? docSnap.data() : null
+  
+    if (data === null || data === undefined) return null
+  
+    // console.log(data.sentrequests);
+    setMConnections(data.connections)
+  
+    };
+
+
   return (
 
     <div className='container mc mcont'>
@@ -27,228 +53,45 @@ const MyConnection = (props) => {
   <div className="container membercontainer">
  <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 ">
 
-   
-
-   <div className="col-sm-4" >
-     <div className="card " style={{width: '100%'}}>
-       <img src="https://www.w3schools.com/howto/img_avatar.png"  className="card-img-top" alt="..." />
-       <div className="card-body">
-         <h5 className="card-title">tdfgdfg</h5>
-         <p className="card-text">
-         Religion : dfgdg <br/>
-         Caste : dfgdgdg
-
-         </p>
-
-
-    
-
-
-
-
-
-       </div>
-     </div>
-
+  {
+    mconnections.map((item) => (
+      <div className="col-sm-4" >
+      <div className="card " style={{width: '100%'}}>
+        <img src="https://www.w3schools.com/howto/img_avatar.png"  className="card-img-top" alt="..." />
+        <div className="card-body">
+          <h5 className="card-title">{item}</h5>
+          <p className="card-text">
+          Religion : dfgdg <br/>
+          Caste : dfgdgdg
+ 
+          </p>
+ 
+ 
      
-   
-
-   </div>
-
-   <div className="col-sm-4" >
-     <div className="card " style={{width: '100%'}}>
-       <img src="https://www.w3schools.com/howto/img_avatar.png"  className="card-img-top" alt="..." />
-       <div className="card-body">
-         <h5 className="card-title">tdfgdfg</h5>
-         <p className="card-text">
-         Religion : dfgdg <br/>
-         Caste : dfgdgdg
-
-         </p>
-
-
+ 
+ 
+ 
+ 
+ 
+        </div>
+      </div>
+ 
+      
     
+ 
+    </div>
+ 
+    ))
+  }   
 
-
-
-
-
-       </div>
-     </div>
-
-     
-   
-
-   </div>
-   <div className="col-sm-4" >
-     <div className="card " style={{width: '100%'}}>
-       <img src="https://www.w3schools.com/howto/img_avatar.png"  className="card-img-top" alt="..." />
-       <div className="card-body">
-         <h5 className="card-title">tdfgdfg</h5>
-         <p className="card-text">
-         Religion : dfgdg <br/>
-         Caste : dfgdgdg
-
-         </p>
-
-
-    
-
-
-
-
-
-       </div>
-     </div>
-
-     
-   
-
-   </div>
-   
-
-   <div className="col-sm-4" >
-     <div className="card " style={{width: '100%'}}>
-       <img src="https://www.w3schools.com/howto/img_avatar.png"  className="card-img-top" alt="..." />
-       <div className="card-body">
-         <h5 className="card-title">tdfgdfg</h5>
-         <p className="card-text">
-         Religion : dfgdg <br/>
-         Caste : dfgdgdg
-
-         </p>
-
-
-    
-
-
-
-
-
-       </div>
-     </div>
-
-     
-   
-
-   </div>
+  
+  
 
 
 
 
  </div>
- <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 ">
 
-   
-
-   <div className="col-sm-4" >
-     <div className="card " style={{width: '100%'}}>
-       <img src="https://www.w3schools.com/howto/img_avatar.png"  className="card-img-top" alt="..." />
-       <div className="card-body">
-         <h5 className="card-title">tdfgdfg</h5>
-         <p className="card-text">
-         Religion : dfgdg <br/>
-         Caste : dfgdgdg
-
-         </p>
-
-
-    
-
-
-
-
-
-       </div>
-     </div>
-
-     
-   
-
-   </div>
-
-   <div className="col-sm-4" >
-     <div className="card " style={{width: '100%'}}>
-       <img src="https://www.w3schools.com/howto/img_avatar.png"  className="card-img-top" alt="..." />
-       <div className="card-body">
-         <h5 className="card-title">tdfgdfg</h5>
-         <p className="card-text">
-         Religion : dfgdg <br/>
-         Caste : dfgdgdg
-
-         </p>
-
-
-    
-
-
-
-
-
-       </div>
-     </div>
-
-     
-   
-
-   </div>
-   <div className="col-sm-4" >
-     <div className="card " style={{width: '100%'}}>
-       <img src="https://www.w3schools.com/howto/img_avatar.png"  className="card-img-top" alt="..." />
-       <div className="card-body">
-         <h5 className="card-title">tdfgdfg</h5>
-         <p className="card-text">
-         Religion : dfgdg <br/>
-         Caste : dfgdgdg
-
-         </p>
-
-
-    
-
-
-
-
-
-       </div>
-     </div>
-
-     
-   
-
-   </div>
-   
-
-   <div className="col-sm-4" >
-     <div className="card " style={{width: '100%'}}>
-       <img src="https://www.w3schools.com/howto/img_avatar.png"  className="card-img-top" alt="..." />
-       <div className="card-body">
-         <h5 className="card-title">tdfgdfg</h5>
-         <p className="card-text">
-         Religion : dfgdg <br/>
-         Caste : dfgdgdg
-
-         </p>
-
-
-    
-
-
-
-
-
-       </div>
-     </div>
-
-     
-   
-
-   </div>
-
-
-
-
- </div>
  
 </div>
 
