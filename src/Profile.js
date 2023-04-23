@@ -90,7 +90,7 @@ function Profile(props) {
         </div>
         <div className="input-box">
           <span className="details">DOB</span>
-          <input type="date" required value={dob}  onChange={(e) => setDOB(e.target.value)} name="dob"/>
+          <input type="date" required value={dob}   onChange={(e) => setDOB(e.target.value)} name="dob"/>
         </div>
         <div className="input-box">
           <span className="details">Place Of Birth</span>
@@ -102,7 +102,7 @@ function Profile(props) {
         </div>
         <div className="input-box">
           <span className="details">Phone Number</span>
-          <input type="text" placeholder="phone number" required value={phone}  onChange={(e) => setPhone(e.target.value)} name="phone"/>
+          <input type="tel" placeholder="phone number" maxLength={10}  required value={phone}  onChange={(e) => setPhone(e.target.value)} name="phone"/>
         </div>
         
         

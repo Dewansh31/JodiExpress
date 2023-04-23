@@ -66,6 +66,9 @@
     cursor: pointer;
   }
 
+  .selectContainer{
+    padding: 10px;
+  }
  
   
   .button-value {

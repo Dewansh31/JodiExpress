@@ -7,15 +7,12 @@ import { app } from '../firebase';
 import { auth } from "../firebase";
 import { getAuth } from "firebase/auth";
 import {arrayUnion, arrayRemove } from "firebase/firestore";
+import { MDBBtn } from 'mdb-react-ui-kit';
+
 
 const db = getFirestore(app)
 
 const MyRequests = (props) => {
-
-  useEffect(() => {
-    fetchsetmembers()
-    fetchreceivedmembers()
-  }, []);
 
 
   const [sentReqMem,setSentReqMem] = useState([]);
@@ -67,6 +64,8 @@ const MyRequests = (props) => {
         console.log(`receiver : ${r}`);
     
         // receiving
+
+        
          const receivedRef = doc (db,`users`,`${r}`);
           await  updateDoc(receivedRef,  {
             connections: arrayUnion(sender.displayName)
@@ -78,11 +77,104 @@ const MyRequests = (props) => {
             await updateDoc(sendRef,  {
             connections: arrayUnion(r)
            })
+
+        // const firestore = getFirestore()
+        const docRef = doc(db, `users`, sender.displayName)
+        const docRef2 = doc(db, `users`, r)
+
+        const docSnap = await getDoc(docRef)
+        const docSnap2 = await getDoc(docRef2)
+
+        const data = docSnap.exists() ? docSnap.data() : null
+        const data2 = docSnap2.exists() ? docSnap2.data() : null
+      
+        if (data === null || data === undefined) return null
+        if (data2 === null || data2 === undefined) return null
+
+        // console.log(data.sentrequests);
+        var temp = data.receivedrequests
+        temp = temp.filter(function(value, index, arr){ 
+          return value !== r;
+      })
+        var temp2 = data2.sentrequests
+        temp2 = temp2.filter(function(value, index, arr){ 
+          return value !== sender.displayName;
+      })
+
+      // receiving
+        const receivedRef2 = doc (db,`users`,`${r}`);
+        await  updateDoc(receivedRef2,  {
+          sentrequests: temp2
+         })
+      
+  
+       //sending
+        const sendRef2 = doc (db,`users`,`${sender.displayName}`);
+          await updateDoc(sendRef2,  {
+          receivedrequests: temp
+         })
+  
+    
+    
+      }
+
+      
+      const handleReject = async(r) =>{
+
+
+        const auth = getAuth();
+        const sender = auth.currentUser;
+      
+        // const firestore = getFirestore()
+        const docRef = doc(db, `users`, sender.displayName)
+        const docRef2 = doc(db, `users`, r)
+
+        const docSnap = await getDoc(docRef)
+        const docSnap2 = await getDoc(docRef2)
+
+        const data = docSnap.exists() ? docSnap.data() : null
+        const data2 = docSnap2.exists() ? docSnap2.data() : null
+      
+        if (data === null || data === undefined) return null
+        if (data2 === null || data2 === undefined) return null
+
+        // console.log(data.sentrequests);
+        var temp = data.receivedrequests
+        temp = temp.filter(function(value, index, arr){ 
+          return value !== r;
+      })
+        var temp2 = data2.sentrequests
+        temp2 = temp2.filter(function(value, index, arr){ 
+          return value !== sender.displayName;
+      })
+    
+        console.log(`rr : ${temp}`);
+        console.log(`sr : ${temp2}`);
+
+       
+        // // receiving
+         const receivedRef = doc (db,`users`,`${r}`);
+          await  updateDoc(receivedRef,  {
+            sentrequests: temp2
+           })
+        
+    
+        //    //sending
+          const sendRef = doc (db,`users`,`${sender.displayName}`);
+            await updateDoc(sendRef,  {
+            receivedrequests: temp
+           })
     
     
       }
     
 
+      useEffect(() => {
+        fetchsetmembers()
+        fetchreceivedmembers()
+      }, [sentReqMem,receivedReqMem]);
+
+      
  
 
   return (
@@ -99,6 +191,12 @@ const MyRequests = (props) => {
     <section id="marzen" className="tab-panel">
 
     <div className="container membercontainer">
+
+{
+  sentReqMem.length === 0 && 
+  <h3>You don't have any sent requests!</h3>
+}
+
   <div className="row row-cols-1  row-cols-md-4 ">
 
 {
@@ -116,8 +214,11 @@ const MyRequests = (props) => {
 
     <div >
 
-    <Button className='detailBtn' variant="primary" >Full Details</Button>
-    <Button className="connectBtn" variant="secondary">  pending </Button>
+    <Button className='detailBtn'  variant="primary" >Full Details</Button>
+    {/* <Button className="connectBtn" variant="secondary">  pending </Button> */}
+    <MDBBtn outline rounded>
+    pending
+      </MDBBtn>
 
       </div>
       </div>
@@ -140,6 +241,11 @@ const MyRequests = (props) => {
     <section id="rauchbier" className="tab-panel">
 
     <div className="container membercontainer">
+
+    {
+  receivedReqMem.length === 0 && 
+  <h3>You don't have any received requests!</h3>
+}
   <div className="row row-cols-1  row-cols-md-4 ">
 
 {
@@ -159,11 +265,16 @@ const MyRequests = (props) => {
 
     <Button className='detailBtn' variant="primary" >Full Details</Button>
 
-    <div className='d-flex flex-row'>
-    <h5 className="connectBtn" variant="secondary" onClick={() => handleAccept(USER)} >  ✔️ </h5>
-    <h5 className="connectBtn" variant="secondary" >  ❌ </h5>
+    <div className="d-grid gap-2 d-md-block my-2 " >
+      <MDBBtn style={{cursor:"pointer"}} outline rounded rippleColor='green'  color='success' onClick={() => handleAccept(USER)}>✔️</MDBBtn>
+      <MDBBtn style={{cursor:"pointer"}} outline rounded rippleColor='green'  color='danger' onClick={() => handleReject(USER)}> ❌</MDBBtn>
+    </div>
 
-      </div>
+    {/* <div className='d-flex flex-row'>
+    <h5 className="connectBtn" style={{hover:{ backgroundColor: 'red'   }}} variant="secondary" onClick={() => handleAccept(USER)} >  ✔️ </h5>
+    <h5 className="connectBtn" variant="secondary" onClick={() => handleReject(USER)} >  ❌ </h5>
+
+      </div> */}
       </div>
       </div>
       </div>

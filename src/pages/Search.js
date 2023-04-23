@@ -1,31 +1,18 @@
 import React,{useState,useEffect} from 'react'
 import './Search.css';
-// import { doc, getDoc } from "firebase/firestore";
+
 import { app } from '../firebase';
-// import { getAuth } from "firebase/auth";
-import { collection, query, where, getDocs  } from "firebase/firestore";
+
+import { collection, query, where, getDocs,or  } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
-import { auth } from "../firebase";
 import { getAuth } from "firebase/auth";
-// import { async } from '@firebase/util';
-// import {
-//   MDBCard,
-//   MDBCardBody,
-//   MDBCardTitle,
-//   MDBCardText,
-//   MDBCardImage,
-//   MDBBtn,
-//   MDBRipple
-// } from 'mdb-react-ui-kit';
+
 import Select from 'react-select';
-// import { MDBRow } from 'mdb-react-ui-kit';
-// import { Link } from 'react-router-dom';
-// import DetailPage from '../DetailPage';
+
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-import { MDBSpinner } from 'mdb-react-ui-kit';
-import {doc,updateDoc,getDoc } from "firebase/firestore"; 
-import {arrayUnion, arrayRemove } from "firebase/firestore";
+import {doc,updateDoc} from "firebase/firestore"; 
+import {arrayUnion } from "firebase/firestore";
 
 
 const db = getFirestore(app)
@@ -83,6 +70,78 @@ function Search() {
     {
       value: "MBBS",
       label: "MBBS"
+    },
+    {
+      value: "MBA",
+      label: "MBA"
+    },
+    {
+      value: "Mass communication",
+      label: "Mass communication"
+    },
+    {
+      value: "Engineering",
+      label: "Engineering"
+    },
+    {
+      value: "Chartered accountant",
+      label: "Chartered accountant"
+    },
+    {
+      value: "Fashion Designing",
+      label: "Fashion Designing"
+    },
+    {
+      value: "Civil services",
+      label: "Civil services"
+    },
+    {
+      value: "Accounts & Finance",
+      label: "Accounts & Finance"
+    },
+    {
+      value: "Mtech",
+      label: "Mtech"
+    },
+    {
+      value: "Law",
+      label: "Law"
+    },
+    {
+      value: "Hotel management",
+      label: "Hotel management"
+    },
+    {
+      value: "BBA",
+      label: "BBA"
+    },
+    {
+      value: "B.Pharma",
+      label: "B.Pharma"
+    },
+    {
+      value: "M.Pharma",
+      label: "M.Pharma"
+    },
+    {
+      value: "B.Ed",
+      label: "B.Ed"
+    },
+    {
+      value: "BCA",
+      label: "BCA"
+    },
+    {
+      value: "MCA",
+      label: "MCA"
+    },
+    {
+      value: "B.Arch",
+      label: "B.Arch"
+    },
+    {
+      value: "Journalism",
+      label: "Journalism"
     }
   ];
 
@@ -104,12 +163,24 @@ function Search() {
       label: "Sikh"
     },
     {
-      value: "Bauddha",
-      label: "Bauddha"
+      value: "Bauddhist",
+      label: "Bauddhist"
     },
     {
-      value: "Parsi",
-      label: "Parsi"
+      value: "Zoroastrian",
+      label: "Zoroastrian"
+    },
+    {
+      value: "Jain",
+      label: "Jain"
+    },
+    {
+      value: "Judaism",
+      label: "Judaism"
+    },
+    {
+      value: "Non-Religious",
+      label: "Non-Religious"
     }
   ];
 
@@ -154,7 +225,7 @@ function Search() {
   const [selected,setSelected] = useState("");
 
 
- 
+  
 
   const handleSelected = (u) =>{
     setSelected(u);
@@ -209,6 +280,7 @@ function Search() {
 
   const handleDegree = e => {
     setDegree(e.value);
+    // applyFilter();
   }
   const handleReligion = e => {
     setReligion(e.value);
@@ -227,18 +299,18 @@ function Search() {
 
   const [show, setShow] = useState(false);
 
-  const handleClose = () => setShow(false);
+  // const handleClose = () => setShow(false);
   // const handleShow = () => setShow(true);
 
  
 
-  const printer = () =>{
-    console.log(`city selected:`, cityValue);
-    console.log(`degree selected:`, degree);
-    console.log(`religion selected:`, religion);
-    console.log(`caste selected:`, caste);
-    console.log(`income selected:`, income);
-  }
+  // const printer = () =>{
+  //   console.log(`city selected:`, cityValue);
+  //   console.log(`degree selected:`, degree);
+  //   console.log(`religion selected:`, religion);
+  //   console.log(`caste selected:`, caste);
+  //   console.log(`income selected:`, income);
+  // }
 
 
   const getAllmembers = async () => {
@@ -265,15 +337,24 @@ function Search() {
 
   const applyFilter = async() =>{
 
-    const q = query(collection(db, "users"), 
+    // const q1 = query(collection(db, "users"), 
+                                            //  where("caste", "==", caste),
+                                            //  where("degree", "==", degree),
+                                            //  where("income", "==", income),
+                                            //  where("religion", "==", religion),
+                                            //  where("city", "==", cityValue)
+                                            //  );
+                                             
+    const q2 = query(collection(db, "users"), or(
                                              where("caste", "==", caste),
                                              where("degree", "==", degree),
                                              where("income", "==", income),
                                              where("religion", "==", religion),
                                             //  where("city", "==", cityValue)
+                                              )
                                              );
 
-    const querySnapshot = await getDocs(q);
+    const querySnapshot = await getDocs(q2);
    
     const tmp = [];
     querySnapshot.forEach((doc) => tmp.push({ ...doc.data(), pid: doc.id }));
@@ -299,8 +380,9 @@ function Search() {
  
 
   useEffect(() => {
+
     fetchAllmembers();
-    // fetchsetmembers();
+    // eslint-disable-next-line
   }, []);
 
 
@@ -317,39 +399,22 @@ function Search() {
   </div>
   <div id="buttons d-flex flex-row">
     
-   
-     <Select
+  <div class="container selectContainer">
+ 
+  <div class="row">
+    <div class="col">
+
+
+
+    <Select
         placeholder="City"
         // className='button-value'
         value={data.filter(obj => obj.value === cityValue)} // set selected value
         options={data} // set list of the data
         onChange={handleChange} // assign onChange function
       />
-    
-    <Select
-        placeholder="Qualification"
-        // className='button-value'
-        value={degreedata.filter(obj => obj.value === degree)} // set selected value
-        options={degreedata} // set list of the data
-        onChange={handleDegree} // assign onChange function
-      />
- 
-    <Select
-        placeholder="Religion"
-        // className='button-value'
-        value={religiondata.filter(obj => obj.value === religion)} // set selected value
-        options={religiondata} // set list of the data
-        onChange={handleReligion} // assign onChange function
-      />
- 
-    <Select
-        placeholder="Caste"
-        // className='button-value'
-        value={castedata.filter(obj => obj.value === caste)} // set selected value
-        options={castedata} // set list of the data
-        onChange={handleCaste} // assign onChange function
-      />
- 
+    </div>
+    <div class="col">
     <Select
         placeholder="Income"
         // className='button-value'
@@ -357,29 +422,69 @@ function Search() {
         options={incomedata} // set list of the data
         onChange={handleIncome} // assign onChange function
       />
+    </div>
+    <div class="col">
+    <Select
+        placeholder="Religion"
+        // className='button-value'
+        value={religiondata.filter(obj => obj.value === religion)} // set selected value
+        options={religiondata} // set list of the data
+        onChange={handleReligion} // assign onChange function
+      />
+    </div>
+    <div class="col">
+    <Select
+        placeholder="Caste"
+        // className='button-value'
+        value={castedata.filter(obj => obj.value === caste)} // set selected value
+        options={castedata} // set list of the data
+        onChange={handleCaste} // assign onChange function
+      />
+    </div>
+    <div class="col">
+  
+
+<Select
+        placeholder="Qualification"
+        // className='button-value'
+        value={degreedata.filter(obj => obj.value === degree)} // set selected value
+        options={degreedata} // set list of the data
+        onChange={handleDegree} // assign onChange function
+      />
+    </div>
+  </div>
+</div>
+
+   
+   
   </div>
   <div  />
 
 </div>
         
    <div className="container membercontainer">
-  <div className="row row-cols-1  row-cols-md-4 ">
-
 
    {
       members.length === 0 &&
   (
-    <div class="d-flex justify-content-center">
-    <div class="spinner-border" role="status">
-      <span class="visually-hidden">Loading...</span>
-    </div>
-  </div>
+
+    <p>No result found</p>
+    // <div class="d-flex justify-content-center">
+    // <div class="spinner-border" role="status">
+    //   <span class="visually-hidden">Loading...</span>
+    // </div>
+    // </div>
 
 
 
   )
       
    }
+
+  <div className="row row-cols-1  row-cols-md-4 ">
+
+
+   
 
   { members.map((item) => (
  
@@ -428,6 +533,7 @@ function Search() {
               <img
                 className="rounded-circle mt-5"
                 width="150px"
+                alt='img'
                 src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
               />
               <span className="font-weight-bold">{selected.username}</span>

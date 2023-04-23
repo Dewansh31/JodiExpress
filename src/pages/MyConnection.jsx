@@ -12,10 +12,7 @@ const db = getFirestore(app)
 
 const MyConnection = (props) => {
 
-  useEffect(() => {
-  fetchConnections()  
-  }, []);
-
+ 
   
   const [mconnections,setMConnections] = useState([]);
   
@@ -37,6 +34,11 @@ const MyConnection = (props) => {
   
     };
 
+    useEffect(() => {
+      fetchConnections()  
+      }, [mconnections]);
+    
+
 
   return (
 
@@ -51,8 +53,16 @@ const MyConnection = (props) => {
 
           
   <div className="container membercontainer">
+
+  {
+    mconnections.length == 0 &&
+    <p>No connections found!</p>
+  }
+
+
  <div className="row row-cols-1 row-cols-sm-2 row-cols-md-4 ">
 
+  
   {
     mconnections.map((item) => (
       <div className="col-sm-4" >
