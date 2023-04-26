@@ -3,7 +3,7 @@ import './Search.css';
 
 import { app } from '../firebase';
 
-import { collection, query, where, getDocs,or  } from "firebase/firestore";
+import { collection, query, where, getDocs,or,and  } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 
@@ -197,6 +197,7 @@ function Search() {
       value: "Verma",
       label: "Verma"
     },
+    
    
   ];
 
@@ -337,21 +338,33 @@ function Search() {
 
   const applyFilter = async() =>{
 
-    // const q1 = query(collection(db, "users"), 
+    // const q1 = query(collection(db, "users"), and(
                                             //  where("caste", "==", caste),
                                             //  where("degree", "==", degree),
                                             //  where("income", "==", income),
                                             //  where("religion", "==", religion),
                                             //  where("city", "==", cityValue)
-                                            //  );
+                                            //  ));
                                              
-    const q2 = query(collection(db, "users"), or(
-                                             where("caste", "==", caste),
-                                             where("degree", "==", degree),
-                                             where("income", "==", income),
-                                             where("religion", "==", religion),
-                                            //  where("city", "==", cityValue)
-                                              )
+    const q2 = query(collection(db, "users"),
+                                             or(
+                                              and(
+                                                 where("caste", "==", caste),
+                                                 where("degree", "==", degree),
+                                                 where("income", "==", income),
+                                                 where("religion", "==", religion),
+                                                //  where("city", "==", cityValue)
+                                                 ),
+                                                 or(
+                                                  where("caste", "==", caste),
+                                                  where("degree", "==", degree),
+                                                  where("income", "==", income),
+                                                  where("religion", "==", religion),
+                                                 //  where("city", "==", cityValue)
+                                                   )
+
+                                             ) 
+                                           
                                              );
 
     const querySnapshot = await getDocs(q2);

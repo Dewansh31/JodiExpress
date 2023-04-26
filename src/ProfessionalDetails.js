@@ -20,7 +20,7 @@ function ProfessionalDetails() {
 
   useEffect(() => {
 		   getData();
-       // eslint-disable-next-linecd
+      // eslint-disable-next-line 
 	  }, []);
 
 
@@ -80,14 +80,28 @@ function ProfessionalDetails() {
         <div className="content">
           <form action="#">
             <div className="user-details">
-              <div className="input-box">
+
+            <select className="form-select input-box" required value={workplace} onChange={(e) => setWorkPlace(e.target.value)} name="pob" aria-label="Default select example">
+        <option selected>Employed In</option>
+        <option value="Mumbai">Mumbai</option>
+        <option value="Delhi">Delhi</option>
+        <option value="Bangalore">Bangalore</option>
+        <option value="Kolkata">Kolkata</option>
+        <option value="Hyderabad">Hyderabad</option>
+        <option value="Gujarat">Gujarat</option>
+        <option value="Lucknow">Lucknow</option>
+        <option value="Chennai">Chennai</option>
+        <option value="Punjab">Punjab</option>
+        <option value="Pune">Pune</option>
+      </select>
+              {/* <div className="input-box">
                 <span className="details">Employed In</span>
                 <input type="text" placeholder="Work place" required value={workplace}  onChange={(e) => setWorkPlace(e.target.value)} name="workplace" />
-              </div>
+              </div> */}
               <div className="input-box">
                 <span className="details">Annual Income</span>
                 <input
-                  type="text"
+                  type="number"
                   placeholder="annual income"
                   required
                   value={income}  onChange={(e) => setIncome(e.target.value)} name="income"
@@ -95,7 +109,7 @@ function ProfessionalDetails() {
               </div>
               <div className="input-box">
                 <span className="details">Phone Number</span>
-                <input type="text" placeholder="phone number" required value={contact}  onChange={(e) => setContact(e.target.value)} name="contact" />
+                <input type="tel"  maxLength={10} placeholder="phone number" required value={contact}  onChange={(e) => setContact(e.target.value)} name="contact" />
               </div>
             </div>
             <div className="button">

@@ -7,6 +7,7 @@ import { getAuth } from "firebase/auth";
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
 
+
 const firestore = getFirestore(app)
 
 function EducationDetails() {
@@ -17,10 +18,11 @@ function EducationDetails() {
   const [collegeName,setCollegeName] = useState("");
   const [yop,setYop] = useState("");
   const [degree,setDegree] = useState("");
+ 
 
   useEffect(() => {
 		   getData();
-       // eslint-disable-next-linecd
+       // eslint-disable-next-line
 	  }, []);
 
 
@@ -83,12 +85,31 @@ function EducationDetails() {
         </div>
         <div className="input-box">
           <span className="details">Year Of Passing</span>
+      
           <input type="text" placeholder=" year of passing" required value={yop}  onChange={(e) => setYop(e.target.value)} name="yop" />
         </div>
-        <div className="input-box">
-          <span className="details">Degree</span>
-          <input type="text" placeholder=" your degree" required value={degree}  onChange={(e) => setDegree(e.target.value)} name="degree" />
-        </div>
+       
+       <select className="form-select input-box" required value={degree} onChange={(e) => setDegree(e.target.value)} name="pob" aria-label="Default select example">
+        <option selected>Degree</option>
+        <option value="Btech">Btech</option>
+        <option value="Mtech">Mtech</option>
+        <option value="Bsc">Bsc</option>
+        <option value="Msc">Msc</option>
+        <option value="Bcom">Bcom</option>
+        <option value="Gujarat">Gujarat</option>
+        <option value="MBBS">MBBS</option>
+        <option value="MBA">MBA</option>
+        <option value="Mass communication">Mass communication</option>
+        <option value="Engineering">Engineering</option>
+        <option value="Chartered accountant">Chartered accountant</option>
+        <option value="Law">Law</option>
+        <option value="B.Pharma">B.Pharma</option>
+        <option value="M.Pharma">M.Pharma</option>
+        <option value="B.Ed">B.Ed</option>
+        <option value="BCA">BCA</option>
+        <option value="MCA">MCA</option>
+        <option value="B.Arch">B.Arch</option>
+      </select>
       </div>
       <div className="button">
         <input type="submit" defaultValue="Register" onClick={handleSubmit} />

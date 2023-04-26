@@ -22,7 +22,7 @@ function BackgroundDetails() {
 
   useEffect(() => {
 		   getData();
-       // eslint-disable-next-linecd
+      // eslint-disable-next-line 
 	  }, []);
 
 
@@ -82,10 +82,21 @@ function BackgroundDetails() {
   <div className="content">
     <form action="#">
       <div className="user-details">
-        <div className="input-box">
-          <span className="details">Religion</span>
-          <input type="text" placeholder=" religion" required value={religion}  onChange={(e) => setReligion(e.target.value)} name="religion" />
-        </div>
+      <select className="form-select input-box" required value={religion} onChange={(e) => setReligion(e.target.value)} name="pob" aria-label="Default select example">
+        <option selected>Religion</option>
+        <option value="Hindu">Hindu</option>
+        <option value="Muslim">Muslim</option>
+        <option value="Christian">Christian</option>
+        <option value="Sikh">Sikh</option>
+        <option value="Bauddhist">Bauddhist</option>
+        <option value="Zoroastrian">Zoroastrian</option>
+        <option value="Jain">Jain</option>
+        <option value="Judaism">Judaism</option>
+        <option value="Non-Religious">Non-Religious</option>
+       
+      </select>
+
+       
         <div className="input-box">
           <span className="details">Caste</span>
           <input type="text" placeholder=" caste" required value={caste}  onChange={(e) => setCaste(e.target.value)} name="caste" />
@@ -94,11 +105,25 @@ function BackgroundDetails() {
           <span className="details">Sub Caste</span>
           <input type="text" placeholder=" sub caste" required value={subcaste}  onChange={(e) => setSubCaste(e.target.value)} name="subcaste" />
         </div>
-        <div className="input-box">
+        {/* <div className="input-box">
           <span className="details">Rashi</span>
           <input type="text" placeholder=" rashi" required value={rashi}  onChange={(e) => setRashi(e.target.value)} name="rashi" />
-        </div>
+        </div> */}
+        <select className="form-select input-box" required value={rashi} onChange={(e) => setRashi(e.target.value)} name="pob" aria-label="Default select example">
+        <option selected>Rashi</option>
+        <option value="Mesh">Mesh</option>
+        <option value="Vrishabh">Vrishabh</option>
+        <option value="Mithun">Mithun</option>
+        <option value="Kark">Kark</option>
+        <option value="Sinh">Sinh</option>
+        <option value="Tula">Tula</option>
+        <option value="Vrishchik">Vrishchik</option>
+        <option value="Dhanu">Dhanu</option>
+        <option value="Makar">Makar</option>
+        <option value="Kumbh">Kumbh</option>
+        <option value="Meen">Meen</option>
        
+      </select>
       
       </div>
       <div className="button">

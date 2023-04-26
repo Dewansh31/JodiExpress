@@ -8,6 +8,7 @@ import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
 
 
+
 const firestore = getFirestore(app)
 
 function Profile(props) {
@@ -25,7 +26,7 @@ function Profile(props) {
 
   useEffect(() => {
 		   getData();
-       // eslint-disable-next-linecd
+        // eslint-disable-next-line
 	  }, []);
 
 
@@ -92,14 +93,30 @@ function Profile(props) {
           <span className="details">DOB</span>
           <input type="date" required value={dob}   onChange={(e) => setDOB(e.target.value)} name="dob"/>
         </div>
-        <div className="input-box">
+        {/* <div className="input-box">
           <span className="details">Place Of Birth</span>
           <input type="text" placeholder="birth place" required value={pob}  onChange={(e) => setPOB(e.target.value)} name="pob" />
-        </div>
-        <div className="input-box">
-          <span className="details">Gender</span>
-          <input type="text" placeholder="gender" required value={gender}  onChange={(e) => setGender(e.target.value)} name="gender"/>
-        </div>
+        </div> */}
+        <select className="form-select input-box" required value={pob} onChange={(e) => setPOB(e.target.value)} name="pob" aria-label="Default select example">
+        <option selected>Place Of Birth</option>
+        <option value="Mumbai">Mumbai</option>
+        <option value="Delhi">Delhi</option>
+        <option value="Bangalore">Bangalore</option>
+        <option value="Kolkata">Kolkata</option>
+        <option value="Hyderabad">Hyderabad</option>
+        <option value="Gujarat">Gujarat</option>
+        <option value="Lucknow">Lucknow</option>
+        <option value="Chennai">Chennai</option>
+        <option value="Punjab">Punjab</option>
+        <option value="Pune">Pune</option>
+      </select>
+        
+      <select className="form-select input-box" required value={gender} onChange={(e) => setGender(e.target.value)} name="gender" aria-label="Default select example">
+      <option selected>Gender</option>
+      <option value="Male">Male</option>
+      <option value="Female">Female</option>
+    </select>
+
         <div className="input-box">
           <span className="details">Phone Number</span>
           <input type="tel" placeholder="phone number" maxLength={10}  required value={phone}  onChange={(e) => setPhone(e.target.value)} name="phone"/>
