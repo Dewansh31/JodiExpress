@@ -12,9 +12,10 @@ const db = getFirestore(app)
 
 const MyConnection = (props) => {
 
- 
+  
   
   const [mconnections,setMConnections] = useState([]);
+  const [loggedInUser,setLoggedInUser] = useState(null);
   
   const fetchConnections = async () => {
    
@@ -31,11 +32,13 @@ const MyConnection = (props) => {
   
     // console.log(data.sentrequests);
     setMConnections(data.connections)
+    setLoggedInUser(data);
   
     };
 
     useEffect(() => {
-      fetchConnections()  
+      fetchConnections();
+      // console.log(loggedInUser);  
       }, [mconnections]);
     
 

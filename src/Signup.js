@@ -6,21 +6,21 @@ import { auth } from "./firebase";
 import { addDoc, getFirestore } from "firebase/firestore";
 import { collection, setDoc,doc } from "firebase/firestore"; 
 import { app } from './firebase';
-// import {
-//   ref,
-//   uploadBytes,
-//   getDownloadURL,
-//   listAll,
-//   list,
-// } from "firebase/storage";
-// import { storage } from "./firebase";
+import {
+  ref,
+  uploadBytes,
+  getDownloadURL,
+  listAll,
+  list,
+} from "firebase/storage";
+import { storage } from "./firebase";
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const firestore = getFirestore(app)
 
-// const storageRef = ref(storage);
+const storageRef = ref(storage);
 
 function Signup() {
 
@@ -31,8 +31,8 @@ function Signup() {
   const validationError = () => toast.error('Please fill all fields!');
   const validation2Error = () => toast.error('Invalid credentials!');
    
-  // const [imageUpload, setImageUpload] = useState(null);
-  // const [imageUrl, setImageUrl] = useState();
+  const [imageUpload, setImageUpload] = useState(null);
+  const [imageUrl, setImageUrl] = useState();
 
 
   const delay = ms => new Promise(
@@ -54,14 +54,14 @@ function Signup() {
 
     const userRef = collection(firestore, `users`);
 
-    // if (imageUpload == null) return;
-    // const imageRef = ref(storage, `images`);
-    // uploadBytes(imageRef, imageUpload).then((snapshot) => {
-    //   getDownloadURL(snapshot.ref).then((url) => {
-    //     setImageUrl(url);
-    //     console.log(url);
-    //   });
-    // });
+    if (imageUpload == null) return;
+    const imageRef = ref(storage, `images`);
+    uploadBytes(imageRef, imageUpload).then((snapshot) => {
+      getDownloadURL(snapshot.ref).then((url) => {
+        setImageUrl(url);
+        console.log(url);
+      });
+    });
 
     
   await setDoc(doc(userRef, `${username}`), {
@@ -92,8 +92,8 @@ function Signup() {
     rashi:"",
     connections:[],
     sentrequests:[],
-    receivedrequests:[]
-    // imgurl:imageUrl
+    receivedrequests:[],
+    url:imageUrl
 });
 
 
@@ -170,9 +170,9 @@ function Signup() {
             <input type="password" placeholder="Enter your password" required value={password}  onChange={(e) => setPassword(e.target.value)} name="password"/>
           </div>
 
-          {/* <input type="file"  onChange={(event) => {
+          <input type="file"  onChange={(event) => {
           setImageUpload(event.target.files[0]);
-          }} /> */}
+          }} />
 
 
           

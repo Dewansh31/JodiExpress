@@ -60,8 +60,8 @@ const MyRequests = (props) => {
         const auth = getAuth();
         const sender = auth.currentUser;
     
-        console.log(`sender : ${sender.displayName}`);
-        console.log(`receiver : ${r}`);
+        // console.log(`sender : ${sender.displayName}`);
+        // console.log(`receiver : ${r}`);
     
         // receiving
 
@@ -113,6 +113,8 @@ const MyRequests = (props) => {
           await updateDoc(sendRef2,  {
           receivedrequests: temp
          })
+
+         alert("Added to your connection!")
   
     
     
@@ -165,6 +167,7 @@ const MyRequests = (props) => {
             receivedrequests: temp
            })
     
+           alert("rejected!")
     
       }
     

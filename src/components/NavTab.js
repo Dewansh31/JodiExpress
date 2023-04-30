@@ -6,6 +6,7 @@ import FamilyDetails from '../FamilyDetails'
 import ProfessionalDetails from '../ProfessionalDetails'
 import BackgroundDetails from '../BackgroundDetails'
 import Sidebar from '../Sidebar';
+import ImgSection from '../ImgSection';
 
 
 const NavTab = (props) => {
@@ -29,6 +30,8 @@ const NavTab = (props) => {
     <label htmlFor="tab4">4</label>
     <input className="inp" id="tab5" type="radio" name="tabs" />
     <label htmlFor="tab5">5</label>
+    <input className="inp" id="tab6" type="radio" name="tabs" />
+    <label htmlFor="tab6">6</label>
 
 
     <section id="content1">
@@ -45,6 +48,9 @@ const NavTab = (props) => {
     </section>
     <section id="content5">
     <BackgroundDetails/>
+    </section>
+    <section id="content6">
+      <ImgSection/>
     </section>
     
   </main>
