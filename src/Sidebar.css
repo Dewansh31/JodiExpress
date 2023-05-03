@@ -15,6 +15,14 @@
     
 }
 
+.badge-danger {
+    background-color: #f9e1e5;
+    color: #af233a;
+    height: 25px;
+    width: fit-content;
+    padding: 10px 8px;
+}
+
 #menu-toggle {
     display: none;
 }
@@ -258,6 +266,7 @@ header {
     display: flex;
     align-items: center;
     cursor: pointer;
+    
 }
 
 .user div, .client-img {

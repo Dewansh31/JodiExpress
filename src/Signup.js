@@ -32,7 +32,7 @@ function Signup() {
   const validation2Error = () => toast.error('Invalid credentials!');
    
   const [imageUpload, setImageUpload] = useState(null);
-  const [imageUrl, setImageUrl] = useState();
+  const [imageUrl, setImageUrl] = useState("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRf2hw0Mq5YNF3BFKPHP5WBxrAOAl1_MdYPxQ&usqp=CAU");
 
 
   const delay = ms => new Promise(
@@ -54,14 +54,14 @@ function Signup() {
 
     const userRef = collection(firestore, `users`);
 
-    if (imageUpload == null) return;
-    const imageRef = ref(storage, `images`);
-    uploadBytes(imageRef, imageUpload).then((snapshot) => {
-      getDownloadURL(snapshot.ref).then((url) => {
-        setImageUrl(url);
-        console.log(url);
-      });
-    });
+    // if (imageUpload == null) return;
+    // const imageRef = ref(storage, `images`);
+    // uploadBytes(imageRef, imageUpload).then((snapshot) => {
+    //   getDownloadURL(snapshot.ref).then((url) => {
+    //     setImageUrl(url);
+    //     console.log(url);
+    //   });
+    // });
 
     
   await setDoc(doc(userRef, `${username}`), {
@@ -93,7 +93,10 @@ function Signup() {
     connections:[],
     sentrequests:[],
     receivedrequests:[],
-    url:imageUrl
+    marryconnections:[],
+    marrysent:[],
+    marryreceived:[],
+    url:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRf2hw0Mq5YNF3BFKPHP5WBxrAOAl1_MdYPxQ&usqp=CAU"
 });
 
 
@@ -129,9 +132,7 @@ function Signup() {
 
       await delay(1500);
 
-    //  console.log(username);
-    //  console.log(email);
-  
+   
       navigate("/");
     })
     .catch((err) => {
@@ -140,9 +141,7 @@ function Signup() {
       toastError();
     });
 
-    //  console.log(username);
-    //  console.log(email);
-    
+ 
   };
 
 

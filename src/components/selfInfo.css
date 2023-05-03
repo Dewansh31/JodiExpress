@@ -1,0 +1,25 @@
+.selfInfoBody{
+    margin-left: 15%;
+}
+
+.header{
+    justify-content: center;
+    text-align: center;
+    font-weight: bolder;
+    color: navy;
+}
+@media screen and (max-width: 650px) {
+    .selfInfoBody{
+        margin-left: 0;
+    }
+    
+  
+  }
+  @media screen and (max-width: 400px) {
+    
+    .selfInfoBody{
+        margin-left: 0;
+    }
+    
+  
+  }

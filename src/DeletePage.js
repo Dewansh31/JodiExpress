@@ -1,6 +1,7 @@
 import Sidebar from './Sidebar'
 import React,{useEffect, useState} from 'react'
 import './Login.css';
+import {updateDoc,getDoc } from "firebase/firestore"; 
 import { Link, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { getAuth, deleteUser } from "firebase/auth";
@@ -9,11 +10,12 @@ import { getFirestore } from "firebase/firestore";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { doc, deleteDoc } from "firebase/firestore";
-import { app } from './firebase';
+import { app } from './firebase';;
+
 
 const db = getFirestore(app)
 
-const DeletePage = () => {
+const DeletePage = (props) => {
 
   
 
@@ -65,6 +67,20 @@ const DeletePage = () => {
     
   };
 
+  const deactivate = async () => {
+
+    const auth = getAuth();
+    const user = auth.currentUser;
+  
+     const docRef = doc (db,`users`,`${user.displayName}`);
+     await updateDoc(docRef,  {
+        status: "deactivate"
+      })
+   
+
+
+  }
+
   useEffect(() => {
     
   const auth = getAuth();
@@ -77,12 +93,12 @@ const DeletePage = () => {
 
   return (
     <div>
-      <Sidebar/>
+      <Sidebar username={props.name} />
      
       <div className="container1">
 
 
-<div className="title">Delete Account</div>
+<div className="title">Deactivate Account</div>
 <div className="content">
   <form action="#">
     <div className="user-details1">
@@ -98,7 +114,7 @@ const DeletePage = () => {
       </div>
      
       <div className="button">
-        <input type="submit" value='Delete'  isabled={submitButtonDisabled} onClick={handleSubmit} /><br /><br/>
+        <input type="submit" value='Deactivate'  disabled={submitButtonDisabled} onClick={deactivate} /><br /><br/>
        
 
         <ToastContainer

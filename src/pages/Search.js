@@ -555,6 +555,9 @@ function Search() {
         onHide={() => setShow(false)}
         dialogClassName="modal-90w"
         aria-labelledby="example-custom-modal-styling-title"
+       
+        
+
       
       >
         <Modal.Header closeButton>
@@ -722,16 +725,7 @@ function Search() {
 
       ))}
 
-   {/* <Alert show={showAlert} variant="success" >
-        <h5>Connection sent successfully!</h5>
-        
-        <hr />
-        <div className="d-flex justify-content-end">
-          <Button onClick={() => setShowAlert(false)} variant="outline-success">
-            Close
-          </Button>
-        </div>
-      </Alert> */}
+
 
 
   </div>

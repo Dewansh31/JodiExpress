@@ -83,8 +83,8 @@ function Sidebar(props) {
     <div className="side-content">
       <div className="profile">
         
-        {/* <div className="profile-img bg-img" style={{backgroundImage:`url({profileUrl})`}} /> */}
-        <img className="profile-img bg-img" src={profileUrl}  />
+        <div className="profile-img bg-img" style={{backgroundImage:`url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRf2hw0Mq5YNF3BFKPHP5WBxrAOAl1_MdYPxQ&usqp=CAU)`}} />
+        {/* <img className="profile-img bg-img" src={profileUrl}  /> */}
         <h4>{UN}</h4>
       
       </div>
@@ -97,9 +97,9 @@ function Sidebar(props) {
             </NavLink >
           </li>
           <li>
-            <NavLink  to="/profile" activeClassName="active">
+            <NavLink  to="/selfinfo" activeClassName="active">
               <span className="las la-user-alt" />
-              <h6 className="smallc">Update Profile</h6>
+              <h6 className="smallc">My Profile</h6>
             </NavLink >
           </li>
           <li>
@@ -116,9 +116,26 @@ function Sidebar(props) {
           </li>
         
           <li>
+            <NavLink to="/myproposals" activeClassName="active">
+              <span className="las la-clipboard-list" />
+              <h6 className="smallc">Proposals</h6>
+            </NavLink>
+          </li>
+
+          <li>
+            <NavLink to="/couples" activeClassName="active">
+              <span className="las la-clipboard-list" />
+              <h6 className="smallc">
+                Couples
+              </h6>
+            </NavLink>
+          </li>
+
+
+          <li>
             <NavLink to="/delete" activeClassName="active">
               <span className="las la-tasks" />
-              <h6 className="smallc">Delete Profile</h6>
+              <h6 className="smallc">Deactivate Profile</h6>
             </NavLink>
           </li>
         </ul>
@@ -135,15 +152,17 @@ function Sidebar(props) {
           {/* <label htmlFor>
             <span className="las la-search" />
           </label> */}
-         
-          <div className="user" onClick={handleLogout}>
-            <div className="bg-img" style={{backgroundImage: 'url(img/1.jpeg)'}} />
+
+<span class="badge badge-danger"><div className="user" onClick={handleLogout}>
+            {/* <div className="bg-img" style={{backgroundImage: 'url(img/1.jpeg)'}} /> */}
             <span className="las la-power-off" />
             <span><b>Logout</b></span>
 
             
 
-          </div>
+          </div></span>
+         
+          
         </div>
       </div>
     </header>
