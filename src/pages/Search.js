@@ -333,13 +333,13 @@ function Search() {
 
     }
 
-    var tempmembers = [];
-    result.forEach((doc) => tempmembers.push({ ...doc.data(), pid: doc.id }));
+    var tempmembers1 = [];
+    result.forEach((doc) => tempmembers1.push({ ...doc.data(), pid: doc.id }));
 
-    tempmembers = tempmembers.sort((a, b) => Number(b.featured) - Number(a.featured));
+    tempmembers1 = tempmembers1.sort((a, b) => Number(b.featured) - Number(a.featured));
 
-    setmembers(tempmembers);
-    setPrev(tempmembers);
+    setmembers(tempmembers1);
+    setPrev(tempmembers1);
     // console.log(members);
   };
 

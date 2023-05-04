@@ -8,6 +8,7 @@ import { auth } from "../firebase";
 import { getAuth } from "firebase/auth";
 import {arrayUnion, arrayRemove } from "firebase/firestore";
 import { MDBBtn } from 'mdb-react-ui-kit';
+import Sidebar2 from '../Sidebar2';
 
 const db = getFirestore(app)
 
@@ -52,7 +53,8 @@ const Couples = (props) => {
 
 <div className='container mc mcont'>
 
-<Sidebar username={props.name} />
+{/* <Sidebar username={props.name} /> */}
+<Sidebar2/>
 
 <div >
 

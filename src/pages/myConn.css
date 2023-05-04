@@ -1,11 +1,10 @@
 * {
     padding: 0;
-    /* margin-top: 20px; */
     box-sizing: border-box;
     border: none;
     outline: none;
     font-family: "Poppins", sans-serif;
-    /* vertical-align: top; */
+
      
   }
   body {
@@ -82,12 +81,12 @@ body {
 }
 
 .tab-panel {
-  padding: 30px 0;
+  padding: 30px 0 0 5%;
   border-top: 1px solid #ccc;
 }
 
 .tabset{
-  margin-top: 50px;
+  margin: 7% 10% 0 20%;
 }
 /*
  Demo purposes only
@@ -98,9 +97,9 @@ body {
   box-sizing: border-box;
 }
 
-body {
+/* body {
   padding: 30px;
-}
+} */
 
 .tabset {
   max-width: 65em;
@@ -113,11 +112,12 @@ body {
   }
 
   .mc{
-    margin-left: 7%;
+    margin-left: 10%;
     
   }
   .mcont{
     margin-top: 100px;
+    margin-left: 15%;
     
   }
 
@@ -238,6 +238,10 @@ body {
       /* width: 120%; */
     }
 
+    .tabset{
+      margin: 7% 10% 0 15%;
+    }
+
     .mc{
       margin-left:0;
     }
@@ -296,6 +300,12 @@ body {
       width: 100%;
     }
 
+  }
+
+  @media(max-width: 459px){
+    .tabset{
+      margin: 18% 10% 0 0%;
+    }
   }
 
 

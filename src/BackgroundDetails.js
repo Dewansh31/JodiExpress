@@ -116,6 +116,7 @@ function BackgroundDetails() {
         <option value="Mithun">Mithun</option>
         <option value="Kark">Kark</option>
         <option value="Sinh">Sinh</option>
+        <option value="Kanya">Kanya</option>
         <option value="Tula">Tula</option>
         <option value="Vrishchik">Vrishchik</option>
         <option value="Dhanu">Dhanu</option>

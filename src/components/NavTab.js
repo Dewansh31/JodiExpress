@@ -19,7 +19,7 @@ const NavTab = (props) => {
   <h1>
     
   </h1>
-  <main>
+  <main className='mainT'>
     <input className="inp" id="tab1" type="radio" name="tabs" defaultChecked />
     <label htmlFor="tab1">1</label>
     <input className="inp" id="tab2" type="radio" name="tabs" />

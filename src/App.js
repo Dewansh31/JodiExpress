@@ -18,6 +18,17 @@ import Couples from './pages/Couples';
 import SelfInfo from './components/SelfInfo';
 
 
+//admin 
+
+
+import FreeMember from "./FreeMember";
+import AddMember from "./AddMember";
+import AddReligion from "./AddReligion";
+import Dashboard2 from "./Dashboard2";
+import PemiumMember from "./PemiumMember";
+import AddCaste from "./AddCaste";
+
+
 function App() {
 
 	const [isAuthenticated,setIsAuthenticated] = useState(false);
@@ -67,7 +78,7 @@ function App() {
         <Route path="/" element={<Dashboard name={userName}/>} />
 
 		<Route path="/dashboard" element={<Dashboard name={userName}  />} />
-		<Route path="/selfinfo" element={<SelfInfo name={userName} />} />
+		 <Route path="/selfinfo" element={<SelfInfo name={userName} />} />
 		<Route path="/profile" element={<NavTab name={userName} />} />
 		<Route path="/familydetails" element={<FamilyDetails name={userName} />} />
 		<Route path="/professionaldetails" element={<ProfessionalDetails name={userName} />} />
@@ -76,8 +87,19 @@ function App() {
 		<Route path="/myrequests" element={<MyRequests name={userName} />} />
 		<Route path="/myproposals" element={<Proposals name={userName} />} />
 		<Route path="/couples" element={<Couples name={userName} />} />
-        <Route path="/delete" element={<DeletePage name={userName} />} />
 		<Route path="*" element={<ErrorPage name={userName}/>} />	
+
+        {/* admin */}
+
+		<Route path="/dashboard2" element={<Dashboard2/>} />
+        <Route path="/addreligion" element={<AddReligion/>} />
+        <Route path="/addcaste" element={<AddCaste/>}/>
+        <Route path="/addmember" element={<AddMember/>} />
+        <Route path="/freemember" element={<FreeMember/>} />
+        <Route path="/premiummember" element={<PemiumMember/>} />
+
+		<Route path="/couples" element={<Couples />} />
+
 		
 		</>
    }

@@ -132,7 +132,7 @@ const MyConnection = (props) => {
 
   return (
 
-    <div className='container mc mcont'>
+    <div className=' mc mcont'>
 
      <Sidebar username={props.name} />
 
@@ -142,7 +142,7 @@ const MyConnection = (props) => {
      <h2>My connections</h2>
 
           
-  <div className="container membercontainer">
+  <div className=" membercontainer">
 
   {
     mconnections.length === 0 &&

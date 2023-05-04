@@ -8,13 +8,51 @@ import { NavLink } from 'react-router-dom';
 import { getFirestore } from "firebase/firestore";
 import {doc,updateDoc,getDoc } from "firebase/firestore"; 
 import { app } from './firebase';
-
+import Form from 'react-bootstrap/Form';
+import { MDBTooltip } from 'mdb-react-ui-kit';
 
 const firestore = getFirestore(app);
 
 function Sidebar(props) {
 
   const toastSuccess = () => toast.success('Logged out successfully!');
+
+  const [sstatus,setSStatus] = useState(true);
+
+  const getStatus = async () =>{
+
+    const auth = getAuth();
+    const user = auth.currentUser;
+
+    const docRef = doc (firestore,`users`,`${user.displayName}`);
+    const docSnap = await getDoc(docRef);
+    const Data = docSnap.data();
+    // console.log(Data.active);
+    setSStatus(Data.active)
+
+  }
+
+
+  const changer = async() =>{
+
+    
+
+
+    const auth = getAuth();
+    const user = auth.currentUser;
+  
+     const docRef = doc (firestore,`users`,`${user.displayName}`);
+     await updateDoc(docRef,  {
+        active: !sstatus
+      })
+
+    setSStatus(prev => !prev)
+  
+
+
+  }
+
+  
 
   const delay = ms => new Promise(
     resolve => setTimeout(resolve, ms)
@@ -23,7 +61,7 @@ function Sidebar(props) {
   const navigate = useNavigate();
 
   const [UN,setUN] = useState("");
-  const [profileUrl,setProfileUrl] = useState("");
+  const [profile1Url,setprofile1Url] = useState("");
 
   const getPhoto = async()=>{
 
@@ -35,7 +73,7 @@ function Sidebar(props) {
     const bgDetailsData = docSnap.data();
     // console.log(bgDetailsData.url);
 
-    setProfileUrl(bgDetailsData.url)
+    setprofile1Url(bgDetailsData.url)
     
     
   
@@ -68,27 +106,28 @@ function Sidebar(props) {
 
   useEffect(() => {
     setUN(props.username);
+    getStatus()
     getPhoto();
- }, []);
+ }, [sstatus]);
 
 
   return (
     <div>
      <div>
   <input type="checkbox" id="menu-toggle" />
-  <div className="sidebar">
-    <div className="side-header">
+  <div className="sidebar1">
+    <div className="side-header1">
       <h3>J<span>odi Express</span></h3>
     </div>
-    <div className="side-content">
-      <div className="profile">
+    <div className="side-content1">
+      <div className="profile1">
         
-        <div className="profile-img bg-img" style={{backgroundImage:`url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRf2hw0Mq5YNF3BFKPHP5WBxrAOAl1_MdYPxQ&usqp=CAU)`}} />
-        {/* <img className="profile-img bg-img" src={profileUrl}  /> */}
+        <div className="profile1-img bg-img" style={{backgroundImage:`url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRf2hw0Mq5YNF3BFKPHP5WBxrAOAl1_MdYPxQ&usqp=CAU)`}} />
+        {/* <img className="profile1-img bg-img" src={profile1Url}  /> */}
         <h4>{UN}</h4>
       
       </div>
-      <div className="side-menu1">
+      <div className="side-menu1u">
         <ul>
           <li>
             <NavLink  to="/dashboard" activeClassName="active">
@@ -99,7 +138,7 @@ function Sidebar(props) {
           <li>
             <NavLink  to="/selfinfo" activeClassName="active">
               <span className="las la-user-alt" />
-              <h6 className="smallc">My Profile</h6>
+              <h6 className="smallc">My profile1</h6>
             </NavLink >
           </li>
           <li>
@@ -122,36 +161,44 @@ function Sidebar(props) {
             </NavLink>
           </li>
 
-          <li>
-            <NavLink to="/couples" activeClassName="active">
-              <span className="las la-clipboard-list" />
-              <h6 className="smallc">
-                Couples
-              </h6>
-            </NavLink>
-          </li>
+         
 
 
-          <li>
-            <NavLink to="/delete" activeClassName="active">
-              <span className="las la-tasks" />
-              <h6 className="smallc">Deactivate Profile</h6>
-            </NavLink>
-          </li>
+        
         </ul>
       </div>
     </div>
   </div>
-  <div className="main-content">
+  <div className="main-content1u">
     <header>
-      <div className="header-content">
+      <div className="header-content1u">
         <label htmlFor="menu-toggle">
           <span className="las la-bars" />
         </label>
+
+
         <div className="header-menu">
-          {/* <label htmlFor>
-            <span className="las la-search" />
-          </label> */}
+         
+     <div  style={{alignItems:"center",justifyContent:"center"}}>
+
+     <MDBTooltip wrapperProps={{ color: 'secondary' }} placement='bottom' title='Uncheck this to deactivate your account!'>
+        
+         
+
+
+<Form.Check
+  type="switch"
+  name="activate-deactivate"
+  id="switch"
+  checked={sstatus}
+  onChange={changer}
+/>
+
+      </MDBTooltip>
+
+     
+     </div>
+
 
 <span class="badge badge-danger"><div className="user" onClick={handleLogout}>
             {/* <div className="bg-img" style={{backgroundImage: 'url(img/1.jpeg)'}} /> */}
