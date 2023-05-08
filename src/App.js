@@ -67,15 +67,21 @@ function App() {
 
 		<Routes>
 
+
+           { !isAuthenticated && 
+
+                    
+						<>
+						<Route path="/signup" element={<Signup />} />
+						<Route path="/login" element={<Login />} /> 
+						{/* <Route path='/error' element={<ErrorPage/>} /> */}
+						<Route path='*' element={<Navigate to='/login' />} />
+					
+						</>
+
+		   }
 			
 
-		<>
-				<Route path="/signup" element={<Signup />} />
-				<Route path="/login" element={<Login />} /> 
-				<Route path='/error' element={<ErrorPage/>} />
-				{/* <Route path='*' element={<Navigate to='/login' />} /> */}
-			
-				</>
 	
 
    
