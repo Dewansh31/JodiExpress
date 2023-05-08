@@ -10,6 +10,8 @@ import {doc,updateDoc,getDoc } from "firebase/firestore";
 import { app } from './firebase';
 import Form from 'react-bootstrap/Form';
 import { MDBTooltip } from 'mdb-react-ui-kit';
+import Button from 'react-bootstrap/Button';
+
 
 const firestore = getFirestore(app);
 
@@ -124,7 +126,7 @@ function Sidebar(props) {
         
         <div className="profile1-img bg-img" style={{backgroundImage:`url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRf2hw0Mq5YNF3BFKPHP5WBxrAOAl1_MdYPxQ&usqp=CAU)`}} />
         {/* <img className="profile1-img bg-img" src={profile1Url}  /> */}
-        <h4>{UN}</h4>
+        <h4>{props.username}</h4>
       
       </div>
       <div className="side-menu1u">
@@ -170,7 +172,7 @@ function Sidebar(props) {
     </div>
   </div>
   <div className="main-content1u">
-    <header>
+    <header className='hd1'>
       <div className="header-content1u">
         <label htmlFor="menu-toggle">
           <span className="las la-bars" />
@@ -181,7 +183,7 @@ function Sidebar(props) {
          
      <div  style={{alignItems:"center",justifyContent:"center"}}>
 
-     <MDBTooltip wrapperProps={{ color: 'secondary' }} placement='bottom' title='Uncheck this to deactivate your account!'>
+     <MDBTooltip  wrapperProps={{ color: 'secondary' }} placement='bottom' title='Uncheck this to deactivate your account!'>
         
          
 
@@ -192,6 +194,7 @@ function Sidebar(props) {
   id="switch"
   checked={sstatus}
   onChange={changer}
+
 />
 
       </MDBTooltip>
@@ -199,16 +202,16 @@ function Sidebar(props) {
      
      </div>
 
+     <Button variant="danger">
 
-<span class="badge badge-danger"><div className="user" onClick={handleLogout}>
-            {/* <div className="bg-img" style={{backgroundImage: 'url(img/1.jpeg)'}} /> */}
-            <span className="las la-power-off" />
-            <span><b>Logout</b></span>
 
-            
-
-          </div></span>
-         
+          {/* <span class="badge badge-danger"> */}
+            <div className="user" onClick={handleLogout}>
+                      <span className="las la-power-off" />
+                      <span><b>Logout</b></span>
+          </div>
+          {/* </span> */}
+      </Button>
           
         </div>
       </div>

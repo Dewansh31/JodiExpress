@@ -1,8 +1,48 @@
 import React from 'react'
 import "./Sidebar2.css"
 import { Link } from 'react-router-dom'
+import Button from 'react-bootstrap/Button';
+import { useNavigate} from 'react-router-dom'
+import { getAuth, signOut } from "firebase/auth";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { NavLink } from 'react-router-dom';
+import { getFirestore } from "firebase/firestore";
+import {doc,updateDoc,getDoc } from "firebase/firestore"; 
+import { app } from './firebase';
 
-function Sidebar2() {
+function Sidebar2(props) {
+
+  const toastSuccess = () => toast.success('Logged out successfully!');
+
+  const delay = ms => new Promise(
+    resolve => setTimeout(resolve, ms)
+  );
+
+  const navigate = useNavigate();
+
+  const handleLogout = async () =>{
+ 
+    toastSuccess();
+
+    const auth = getAuth();
+
+    await delay(1000);
+
+    signOut(auth).then(() => {
+      // console.log("logged out!");
+      
+      
+      navigate("/login")
+
+    }).catch((error) => {
+      console.log("logout failed!");
+    });
+
+  }
+  
+
+
   return (
   <div>
   <input type="checkbox" id="menu-toggle" />
@@ -13,8 +53,8 @@ function Sidebar2() {
     <div className="side-content">
       <div className="profile">
         <div className="profile-img bg-img" style={{backgroundImage: 'url(https://static.vecteezy.com/system/resources/thumbnails/005/544/718/small/profile-icon-design-free-vector.jpg)'}} />
-        <h4>XYZ</h4>
-        <small>Art Director</small>
+        <h4>{props.name}</h4>
+        <small>Administrator</small>
       </div>
       <div className="side-menu">
         <ul>
@@ -27,7 +67,7 @@ function Sidebar2() {
           <li>
             <Link to="/addmember">
               <span className="las la-user-alt" />
-              <small>Members</small>
+              <small>Edit Member</small>
               {/* <ul>
                 <li>Free Members</li>
                 <li>Premium Members</li>
@@ -43,22 +83,16 @@ function Sidebar2() {
           <li>
             <Link to="/freemember">
               <span className="las la-clipboard-list" />
-              <small>Free Member</small>
+              <small>Members</small>
             </Link>
           </li>
-          <li>
-            <Link to="/premiummember">
-              <span className="las la-shopping-cart" />
-              <small>Premium Members</small>
-            </Link>
-          </li>
-
+          
           <li>
           <Link to="/couples" activeClassName="active">
               <span className="las la-clipboard-list" />
-              <h6 className="smallc">
+              <small className="smallc">
                 Couples
-              </h6>
+              </small>
             </Link>
           
 
@@ -75,9 +109,7 @@ function Sidebar2() {
           <span className="las la-bars" />
         </label>
         <div className="header-menu">
-          <label htmlFor>
-            <span className="las la-search" />
-          </label>
+         
           <div className="notify-icon">
             <span className="las la-envelope" />
             <span className="notify">4</span>
@@ -86,11 +118,17 @@ function Sidebar2() {
             <span className="las la-bell" />
             <span className="notify">3</span>
           </div>
-          <div className="user">
-            <div className="bg-img" style={{backgroundImage: 'url(img/1.jpeg)'}} />
+          
+          <Button variant="danger">
+
+
+  <div className="user" onClick={handleLogout}>
             <span className="las la-power-off" />
-            <span>Logout</span>
-          </div>
+            <span><b>Logout</b></span>
+</div>
+
+</Button>
+
         </div>
       </div>
     </header>

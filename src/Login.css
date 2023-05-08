@@ -30,6 +30,17 @@ body{
   border-radius: 5px;
   box-shadow: 0 5px 10px rgba(0,0,0,0.15);
 }
+
+.lcontainer1{
+      /* margin-left: 50%; */
+  margin: auto;
+  max-width: 400px;
+  width: 120%;
+  background-color: #fff;
+  padding: 25px 30px;
+  border-radius: 5px;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+}
 .container1 .title{
   font-size: 25px;
   font-weight: 500;
@@ -44,6 +55,21 @@ body{
   width: 30px;
   border-radius: 5px;
   background: #ea025b;
+}
+.lcontainer1 .title::before{
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  width: 30px;
+  border-radius: 5px;
+  background: #ea025b;
+}
+.lcontainer1 .title{
+  font-size: 25px;
+  font-weight: 500;
+  position: relative;
 }
 .content form .user-details1{
   /* display: flex; */

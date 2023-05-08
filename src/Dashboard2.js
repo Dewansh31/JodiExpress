@@ -32,7 +32,7 @@ ChartJS.register(ArcElement, Tooltip, Legend,CategoryScale,LinearScale);
 
 
 
-function Dashboard2() {
+function Dashboard2(props) {
 
   //members counts
   const [totalMembers,setTotalMembers] = useState(0);
@@ -90,7 +90,7 @@ function Dashboard2() {
     const snapshot = await getCountFromServer(q1);
     // console.log('count: ', snapshot.data().count);
     setNHindu(snapshot.data().count)
-    console.log("Hindu members:",snapshot.data().count);
+    // console.log("Hindu members:",snapshot.data().count);
 
     const MuslimRef = collection(firestore, "users");
     const q2 = query(MuslimRef, where("religion", "==", "Muslim"));
@@ -150,7 +150,7 @@ function Dashboard2() {
     const snapshot = await getCountFromServer(q1);
     // console.log('count: ', snapshot.data().count);
     setNMesh(snapshot.data().count)
-    console.log("Hindu members:",snapshot.data().count);
+    // console.log("Hindu members:",snapshot.data().count);
 
     const ref2 = collection(firestore, "users");
     const q2 = query(ref2, where("rashi", "==", "Vrishabh"));
@@ -315,13 +315,13 @@ function Dashboard2() {
   return (
     <div>
 
-    <Sidebar2/>
+    <Sidebar2 name={props.name}/>
 
     <div className="amain-content">
        <main>
-      <div className="page-header">
-        <h1>Dashboard</h1>
-        <small>Home / Dashboard</small>
+      <div className="page-header" style={{padding:"0 0 0 0"}}>
+        <h1 style={{padding:"10px 0 "}}>Dashboard</h1>
+       
       </div>
       <div className="page-content">
         <div className="analytics">

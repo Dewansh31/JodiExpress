@@ -14,9 +14,10 @@ import {
   list,
 } from "firebase/storage";
 import { storage } from "./firebase";
-
+import { getAuth} from "firebase/auth";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Form from 'react-bootstrap/Form';
 
 const firestore = getFirestore(app)
 
@@ -41,9 +42,12 @@ function Signup() {
 
   const [username, setUserName] = useState("");
   const [email, setEmail] = useState("");
+  const [role,setRole] = useState("user");
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
+
+
 
  
 
@@ -51,58 +55,67 @@ function Signup() {
 
   const writeData =  async (e) =>{
 
+    if(role === "admin"){
 
-    const userRef = collection(firestore, `users`);
-
-    // if (imageUpload == null) return;
-    // const imageRef = ref(storage, `images`);
-    // uploadBytes(imageRef, imageUpload).then((snapshot) => {
-    //   getDownloadURL(snapshot.ref).then((url) => {
-    //     setImageUrl(url);
-    //     console.log(url);
-    //   });
-    // });
-
-    
+      
+  const userRef = collection(firestore, `admins`);
+  
   await setDoc(doc(userRef, `${username}`), {
     username:username,
     email:email,
     password:password,
     fullName:"",
     dob:"",
-    pob:"",
     gender:"",
     phone:"",
-    height:"",
-    collegeName:"",
-    yop:"",
-    degree:"",
-    workplace:"",
-    income:"",
-    contact:"",
-    fathersName:"",
-    mothersName:"",
-    fatherOccupation:"",
-    motherOccupation:"",
-    familyLives:"",
-    familyType:"",
-    religion:"",
-    caste:"",
-    subcaste:"",
-    rashi:"",
-    connections:[],
-    sentrequests:[],
-    receivedrequests:[],
-    marryconnections:[],
-    marrysent:[],
-    marryreceived:[],
+    role:role,
     url:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRf2hw0Mq5YNF3BFKPHP5WBxrAOAl1_MdYPxQ&usqp=CAU"
 });
 
 
+    }else{
 
-
+      const userRef = collection(firestore, `users`);
   
+      await setDoc(doc(userRef, `${username}`), {
+        username:username,
+        email:email,
+        password:password,
+        active:true,
+        fullName:"",
+        dob:"",
+        pob:"",
+        gender:"",
+        phone:"",
+        height:"",
+        collegeName:"",
+        yop:"",
+        degree:"",
+        workplace:"",
+        income:"",
+        contact:"",
+        fathersName:"",
+        mothersName:"",
+        fatherOccupation:"",
+        motherOccupation:"",
+        familyLives:"",
+        familyType:"",
+        religion:"",
+        caste:"",
+        subcaste:"",
+        rashi:"",
+        role:role,
+        connections:[],
+        sentrequests:[],
+        receivedrequests:[],
+        marryconnections:[],
+        marrysent:[],
+        marryreceived:[],
+        url:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRf2hw0Mq5YNF3BFKPHP5WBxrAOAl1_MdYPxQ&usqp=CAU"
+    });
+    
+
+    }
 
    }
 
@@ -122,18 +135,40 @@ function Signup() {
       setSubmitButtonDisabled(false);
       toastSuccess()
       const user = res.user;
+      // console.log(user);
       writeData();
-
     
-      await updateProfile(user, {
-        displayName: username,
-        // photoURL: imageUrl
-      });
 
-      await delay(1500);
+      if(role == "admin"){
+        await updateProfile(user, {
+          displayName: username,
+          photoURL:"admin"  
+          
+        });
 
    
-      navigate("/");
+
+      }else{
+        await updateProfile(user, {
+          displayName: username,
+          
+        });
+
+    
+
+      }
+
+      // navigate('/')
+    
+      if(res.user.photoURL == "admin"){
+        await delay(1000);
+        navigate("/dashboard2");
+      } else{
+        await delay(1000);
+        navigate("/dashboard");
+      };
+
+      
     })
     .catch((err) => {
       setSubmitButtonDisabled(false);
@@ -147,7 +182,7 @@ function Signup() {
 
   return (
     <div>
-      <div className="container1">
+      <div className="lcontainer1">
     <div className="title">Signup</div>
     <div className="content">
       <form action="#">
@@ -160,10 +195,7 @@ function Signup() {
             <span className="details">Email</span>
             <input type="email" placeholder="Enter your email" required  value={email}  onChange={(e) => setEmail(e.target.value)} name="email" />
           </div>
-          {/* <div className="input-box1">
-            <span className="details">Phone</span>
-            <input type="text" placeholder="Enter your number" required />
-          </div> */}
+         
           <div className="input-box1">
             <span className="details">Password</span>
             <input type="password" placeholder="Enter your password" required value={password}  onChange={(e) => setPassword(e.target.value)} name="password"/>
@@ -174,7 +206,11 @@ function Signup() {
           }} />
 
 
-          
+   {/* <select className="form-select input-box1" required value={role} onChange={(e) => setRole(e.target.value)} name="role" aria-label="Default select example">
+      <option selected>Select role</option>
+      <option value="user">user</option>
+      <option value="admin">admin</option>
+    </select> */}
       
 
           <p className="errormsg">{errorMsg}</p>

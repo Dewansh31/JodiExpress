@@ -1,4 +1,5 @@
 import { BrowserRouter as Router,Routes,Route} from 'react-router-dom'
+import { Navigate } from 'react-router-dom';
 import EducationDetails from "./EducationDetails";
 import FamilyDetails from "./FamilyDetails";
 import ProfessionalDetails from "./ProfessionalDetails";
@@ -8,6 +9,7 @@ import MyRequests from './pages/MyRequests';
 import NavTab from './components/NavTab'
 import Signup from './Signup'
 import Login from './Login'
+// import Swiper from './Swiper'
 
 import { useState,useEffect } from 'react';
 import { auth } from "./firebase";
@@ -16,7 +18,7 @@ import DeletePage from './DeletePage';
 import Proposals from './pages/Proposals';
 import Couples from './pages/Couples';
 import SelfInfo from './components/SelfInfo';
-
+import { useNavigate } from 'react-router-dom';
 
 //admin 
 
@@ -33,16 +35,24 @@ function App() {
 
 	const [isAuthenticated,setIsAuthenticated] = useState(false);
 	const [userName, setUserName] = useState("");
+	const [isAdmin, setIsAdmin] = useState(false);
+	// const [isUser, setIsUser] = useState(false);
 	// const [profilePhoto, setProfilePhoto] = useState(null);
+	
+	// const navigate = useNavigate();
 	
 	useEffect(() => {
 		auth.onAuthStateChanged((user) => {
 		  if (user) {
 			setUserName(user.displayName);
-			// setProfilePhoto(user.photoURL);
-			setIsAuthenticated(true)
+            setIsAuthenticated(true)
+			if(user.photoURL == "admin"){
+				setIsAdmin(true)
+				// navigate("/dashboard2")
+			}
 		  } else {
 			setUserName("")
+			setIsAdmin(false)
 		  };
 		});
 	  }, []);
@@ -59,50 +69,92 @@ function App() {
 
 			
 
-				<>
+		<>
 				<Route path="/signup" element={<Signup />} />
 				<Route path="/login" element={<Login />} /> 
-				<Route path="*" element={<Login />} />	
+				<Route path='/error' element={<ErrorPage/>} />
+				{/* <Route path='*' element={<Navigate to='/login' />} /> */}
+			
 				</>
-		
-
-
 	
 
    
 
-	{ isAuthenticated &&
+				{ isAuthenticated &&
+						
 
-       <>
+					<>
 
-        <Route path="/" element={<Dashboard name={userName}/>} />
+					{/* admin */}
 
-		<Route path="/dashboard" element={<Dashboard name={userName}  />} />
-		 <Route path="/selfinfo" element={<SelfInfo name={userName} />} />
-		<Route path="/profile" element={<NavTab name={userName} />} />
-		<Route path="/familydetails" element={<FamilyDetails name={userName} />} />
-		<Route path="/professionaldetails" element={<ProfessionalDetails name={userName} />} />
-		<Route path="/educationaldetails" element={<EducationDetails name={userName} />} />
-		<Route path="/myconnections" element={<MyConnection  name={userName}/>} />
-		<Route path="/myrequests" element={<MyRequests name={userName} />} />
-		<Route path="/myproposals" element={<Proposals name={userName} />} />
-		<Route path="/couples" element={<Couples name={userName} />} />
-		<Route path="*" element={<ErrorPage name={userName}/>} />	
+					{  isAdmin &&
 
-        {/* admin */}
+								<>
 
-		<Route path="/dashboard2" element={<Dashboard2/>} />
-        <Route path="/addreligion" element={<AddReligion/>} />
-        <Route path="/addcaste" element={<AddCaste/>}/>
-        <Route path="/addmember" element={<AddMember/>} />
-        <Route path="/freemember" element={<FreeMember/>} />
-        <Route path="/premiummember" element={<PemiumMember/>} />
+								<Route path="/" element={<Dashboard2 name={userName}/>} />
 
-		<Route path="/couples" element={<Couples />} />
+								<Route path="/dashboard2" element={<Dashboard2 name={userName}/>} />
+								<Route path="/addreligion" element={<AddReligion name={userName} />} />
+								<Route path="/addcaste" element={<AddCaste name={userName} />}/>
+								<Route path="/addmember" element={<AddMember name={userName} />} />
+								<Route path="/freemember" element={<FreeMember name={userName}/>} />
+								<Route path="/premiummember" element={<PemiumMember name={userName} />} />
 
-		
-		</>
-   }
+								<Route path="/couples" element={<Couples name={userName} />} />
+								<Route path='/error' element={<ErrorPage/>} />
+
+								<Route path='*' element={<Navigate to='/error' />} />
+
+								</>
+
+					}
+
+                    { !isAdmin && 
+
+					   
+					<>
+
+					<Route path="/" element={<Dashboard name={userName}/>} />
+
+					<Route path="/dashboard" element={<Dashboard name={userName}  />} />
+					<Route path="/selfinfo" element={<SelfInfo name={userName} />} />
+					<Route path="/profile" element={<NavTab name={userName} />} />
+					<Route path="/familydetails" element={<FamilyDetails name={userName} />} />
+					<Route path="/professionaldetails" element={<ProfessionalDetails name={userName} />} />
+					<Route path="/educationaldetails" element={<EducationDetails name={userName} />} />
+					<Route path="/myconnections" element={<MyConnection  name={userName}/>} />
+					<Route path="/myrequests" element={<MyRequests name={userName} />} />
+					<Route path="/myproposals" element={<Proposals name={userName} />} />
+					<Route path="/couples" element={<Couples name={userName} />} />
+					<Route path='/error' element={<ErrorPage/>} />
+					<Route path='*' element={<Navigate to='/error' />} />
+					</>
+
+
+					}
+					
+
+
+				
+
+
+
+						
+
+
+
+					
+
+					
+					</>
+					}
+
+
+					
+				
+
+
+
 
 		</Routes>
 

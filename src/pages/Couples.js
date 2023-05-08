@@ -9,6 +9,7 @@ import { getAuth } from "firebase/auth";
 import {arrayUnion, arrayRemove } from "firebase/firestore";
 import { MDBBtn } from 'mdb-react-ui-kit';
 import Sidebar2 from '../Sidebar2';
+import { MDBListGroup, MDBListGroupItem } from 'mdb-react-ui-kit';
 
 const db = getFirestore(app)
 
@@ -54,12 +55,16 @@ const Couples = (props) => {
 <div className='container mc mcont'>
 
 {/* <Sidebar username={props.name} /> */}
-<Sidebar2/>
+<Sidebar2 name={props.name}/>
 
 <div >
 
 
-<h2>Successfull Couples</h2>
+{/* <h2>Successfull Couples</h2> */}
+<MDBListGroup style={{ Width: '100%',position:"relative" }} >
+      <MDBListGroupItem style={{margin:"auto",padding:"4px"}}><h2>Successfull Couples</h2> </MDBListGroupItem>
+
+    </MDBListGroup>
 
      
 <div className="container membercontainer">

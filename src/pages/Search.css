@@ -27,6 +27,8 @@
   }
 
 
+
+
  
   .searchBarwrapper {
     margin-top: 7%;
@@ -65,11 +67,137 @@
     margin-top: 0.5em;
     cursor: pointer;
   }
+  #search-scontainer button:hover {
+   
+    background-color: red;
+   
+  }
 
   .selectContainer{
     padding: 10px;
   }
- 
+
+  button.primary {
+    background-color: #060047;
+    border: 1px solid #060047;
+    color: #231E39;
+    font-family: Montserrat, sans-serif;
+    font-weight: 500;
+    padding: 10px 15px;
+    margin: 0 2px 0 2px;
+    height: 50px;
+    /* width: 110px; */
+    border-radius: 50px;
+  }
+  
+  button.primary.ghost {
+    background-color: transparent;
+    background-color: #060047;
+  }
+  
+  .badge-warning {
+    background-color: #ffaa00;
+    color: #050025;
+    margin-left: 180px;
+    margin-top: 110px;
+}
+
+/* .badge-warning {
+  background-color: #ffaa00;
+  color: #050025;
+  margin-left: 180px;
+  margin-top: 110px;
+} */
+.badge-secondary {
+  background-color: #aec4da;
+  color: #0036b3;
+  margin-left: 180px;
+  margin-top: 110px;
+}
+
+  .cardheader {
+    background: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREbtbW67z98hM-Q0CfCntbmWOFskFLznpXZA&usqp=CAU");
+    background-size: 100%;
+    /* height: 135px;
+    position: relative;*/
+    height: 100px;
+    width:255px; 
+    position: relative;
+    right: 16px;
+    bottom: 15px;
+    border-radius:10px 10px 0  0 ;
+}
+
+/* .card7 :hover{
+
+  transform: scale(1.08);
+  transition: all 1s ease;
+  border-radius: 15px;
+  box-shadow: #cf099a 0px 10px 36px 0px, rgba(121, 2, 105, 0.171) 0px 0px 0px 1px;
+
+} */
+
+.addes 
+ {
+  font-family:'Times New Roman', Times, serif;
+  font-weight: bold;
+  transition: all 0.3s;
+ }
+
+ .addes:hover 
+ {
+  font-family:'Times New Roman', Times, serif;
+  font-weight: bolder;
+  transform: scale(1.08);
+  transition: all 1s ease;
+ }
+
+ .card-text:hover 
+ {
+  font-weight: bolder;
+ }
+
+ .card-title:hover 
+ {
+  
+  transform: scale(1.08);
+  transition: all 1s ease;
+ }
+
+ .card-text 
+  {
+    text-align: center;
+    /* position: relative; */
+    top:30px;
+    transition: all 0.3s;
+    
+  
+  }
+  .card-title 
+  {
+    text-align: center;
+   
+  }
+
+
+.avatar {
+  position: relative;
+  top: -50px;
+  margin-bottom: -50px;
+}
+
+.avatar img {
+  width: 100px;
+  height: 100px;
+  max-width: 100px;
+  max-height: 100px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  border: 5px solid rgba(255,255,255,0.5);
+  margin-left: 58px;
+}
+
   
   .button-value {
  

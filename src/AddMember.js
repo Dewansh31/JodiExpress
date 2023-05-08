@@ -2,11 +2,11 @@ import React from 'react'
 import "./AddMember.css"
 import Sidebar2 from './Sidebar2'
 
-export default function AddMember() {
+export default function AddMember(props) {
   return (
     <div>
       
-      <Sidebar2/>
+      <Sidebar2 name={props.name}/>
   <div className="wrapper">
     <div className="title">
       Add New Member

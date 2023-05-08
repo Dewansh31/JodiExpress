@@ -36,15 +36,20 @@
     bottom: 0;
     top: 0;
     z-index: 100;
-    transition: left 300ms;
-    background: url("https://plus.unsplash.com/premium_photo-1670781115962-12c7753e75af?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80");
+    box-shadow: 0 5px 10px rgba(0,0,0,0.80);
+    /* background: url("https://plus.unsplash.com/premium_photo-1670781115962-12c7753e75af?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80"); */
    
+    background:url('https://wallpapercave.com/wp/wp7745448.jpg');
+    background: url('https://t3.ftcdn.net/jpg/00/86/37/80/360_F_86378049_JVYlxCYaYE6VgoHpPD2he6dh0DZ4r7P0.jpg');
+    transition: left 300ms;
+    background-position: center;
+ 
 }
 
 
 
 .side-menu1u ul li:hover {
-    background: #6a0b516c;
+    background: #960b716c;
     opacity: 1;
     border-radius: 15px;
     margin: 0rem 0.5rem;
@@ -54,6 +59,8 @@
 ul{
     padding-left: 0;
 }
+
+
 
 /* .side-header1 {
     box-shadow: 0px 5px 5px -5px rgb(0 0 0 /10%);
@@ -73,8 +80,11 @@ ul{
 } */
 
 .side-header1 {
-    box-shadow: 0px 5px 5px -5px rgb(0 0 0 /10%);
-    background: var(--main-color2);
+    /* box-shadow: 0px 5px 5px -5px rgb(0 0 0 /10%); */
+    /* background: var(--main-color2); */
+    box-shadow: 0 5px 10px rgba(0,0,0,0.80);
+    background:url('https://wallpapercave.com/wp/wp7745448.jpg');
+    background: url('https://t3.ftcdn.net/jpg/00/86/37/80/360_F_86378049_JVYlxCYaYE6VgoHpPD2he6dh0DZ4r7P0.jpg');
     height: 60px;
     display: flex;
     justify-content: center;
@@ -211,6 +221,11 @@ ul{
     margin-left: 165px;
     width: calc(100% - 165px);
     transition: margin-left 300ms;
+   
+}
+
+.hd1{
+    box-shadow: 0 5px 10px rgba(51, 50, 50, 0.8);
 }
 
 header {

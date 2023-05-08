@@ -1,11 +1,11 @@
-import React,{useState} from 'react'
+import React,{useState,useEffect} from 'react'
 import './Login.css';
 import { Link, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "./firebase";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
+import { getAuth } from "firebase/auth";
 
 function Login() {
 
@@ -46,10 +46,17 @@ function Login() {
         
         toastSuccess()
 
-        
-        await delay(1500);
+          //  console.log(res.user);
+
+        if(res.user.photoURL == "admin"){
+           await delay(1000);
+          navigate("/dashboard2");
+        } else {
+           await delay(1000);
+          navigate("/dashboard");
+        };
        
-        navigate("/");
+       
     
       })
       .catch((err) => {
@@ -60,11 +67,30 @@ function Login() {
     
   };
 
+  // useEffect(() => {
+
+  //   const auth = getAuth();
+  //   const user = auth.currentUser;
+
+  //   if (user) {
+
+
+	// 		if(user.photoURL == "admin"){
+	// 			navigate("/dashboard2");
+	// 		} else {
+  //       navigate("/dashboard");
+	// 	  };
+	// 	}
+
+	
+	//   }, []);
+
+
   return (
     <div>
 
       
-  <div className="container1">
+  <div className="lcontainer1">
 
 
     <div className="title">Login</div>
