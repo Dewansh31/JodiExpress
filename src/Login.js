@@ -46,7 +46,7 @@ function Login() {
         
         toastSuccess()
 
-          //  console.log(res.user);
+           console.log(res.user.uid+res.user.uid);
 
         if(res.user.photoURL == "admin"){
            await delay(1000);

@@ -9,6 +9,8 @@ import { auth } from "../firebase";
 import { getAuth } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { MDBBtn } from 'mdb-react-ui-kit';
+import errorimg from '../images/error.png'
+import Spinner from "../Spinner";
 
 const db = getFirestore(app)
 
@@ -16,6 +18,7 @@ const MyConnection = (props) => {
 
   const [mconnections,setMConnections] = useState([]);
   const [tUser,setTUser] = useState(null);
+  const [flag,setFlag] = useState(true)
 
 
 
@@ -119,6 +122,8 @@ const MyConnection = (props) => {
   
     // console.log(data.sentrequests);
     setMConnections(data.connections)
+
+    setFlag(false)
     
   
     };
@@ -138,15 +143,39 @@ const MyConnection = (props) => {
 
      <div >
 
-
-     <h2>My connections</h2>
+     <div className="page-header" style={{padding:"0 0 0 0",position:"relative"}}>
+        <h3 style={{padding:"10px 50px ",margin:"auto"}}>My connections</h3>
+       
+      </div>
+     {/* <h2>My connections</h2> */}
 
           
   <div className=" membercontainer">
 
   {
-    mconnections.length === 0 &&
-    <p>No connections found!</p>
+    mconnections.length === 0 && !flag &&
+
+    <div className="" >
+
+    <h3 style={{margin:"auto",
+               marginLeft:"100px",
+              justifyContent:"center"
+        }}>You don't have any connection!</h3>
+    
+      <img style={{
+        height:"50%",
+        width:"50%",
+        marginLeft:"150px",
+        justifyContent:"center"
+      }} src={errorimg}   alt="..." />
+    
+    </div>
+  }
+
+  { flag &&
+    
+    <Spinner/>
+
   }
 
 

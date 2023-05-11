@@ -46,6 +46,7 @@ function Signup() {
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
+  const [key, setKey] = useState();
 
 
 
@@ -61,7 +62,7 @@ function Signup() {
   const userRef = collection(firestore, `admins`);
   
   await setDoc(doc(userRef, `${username}`), {
-    username:username,
+    username:username.concat(key),
     email:email,
     password:password,
     fullName:"",
@@ -78,7 +79,7 @@ function Signup() {
       const userRef = collection(firestore, `users`);
   
       await setDoc(doc(userRef, `${username}`), {
-        username:username,
+        username:username.concat(key),
         email:email,
         password:password,
         active:true,
@@ -94,6 +95,7 @@ function Signup() {
         workplace:"",
         income:"",
         contact:"",
+        featured:false,
         fathersName:"",
         mothersName:"",
         fatherOccupation:"",
@@ -135,13 +137,16 @@ function Signup() {
       setSubmitButtonDisabled(false);
       toastSuccess()
       const user = res.user;
-      // console.log(user);
-      writeData();
+      console.log(user.uid);
+      setKey(user.uid)
     
+      writeData();
+
+     
 
       if(role == "admin"){
         await updateProfile(user, {
-          displayName: username,
+          displayName: username.concat(key),
           photoURL:"admin"  
           
         });
@@ -150,13 +155,15 @@ function Signup() {
 
       }else{
         await updateProfile(user, {
-          displayName: username,
+          displayName: username.concat(key),
           
         });
 
-    
+     
 
       }
+
+      console.log(user);
 
       // navigate('/')
     

@@ -61,10 +61,15 @@ const Couples = (props) => {
 
 
 {/* <h2>Successfull Couples</h2> */}
-<MDBListGroup style={{ Width: '100%',position:"relative" }} >
-      <MDBListGroupItem style={{margin:"auto",padding:"4px"}}><h2>Successfull Couples</h2> </MDBListGroupItem>
+{/* <MDBListGroup style={{ Width: '100%',position:"relative" }} > */}
+      {/* <MDBListGroupItem style={{margin:"auto",padding:"4px"}}><h2>Successfull Couples</h2> </MDBListGroupItem> */}
 
-    </MDBListGroup>
+      <div className="page-header" style={{padding:"0 0 0 0",position:"relative"}}>
+        <h3 style={{padding:"10px 50px ",margin:"auto"}}>Successfull Couples</h3>
+       
+      </div>
+
+    {/* </MDBListGroup> */}
 
      
 <div className="container membercontainer">

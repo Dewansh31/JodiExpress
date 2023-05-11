@@ -8,6 +8,8 @@ import { auth } from "../firebase";
 import { getAuth } from "firebase/auth";
 import {arrayUnion, arrayRemove } from "firebase/firestore";
 import { MDBBtn } from 'mdb-react-ui-kit';
+import errorimg from '../images/error.png'
+import Spinner from '../Spinner';
 
 const db = getFirestore(app)
 
@@ -16,7 +18,7 @@ const Proposals = (props) => {
     const [marrysentReqMem,setmarrysentReqMem] = useState([]);
     const [marryreceivedReqMem,setmarryreceivedReqMem] = useState([]);
     const [marryConnections,setMarryConnections] = useState([]);
-
+    const [flag,setFlag] = useState(true)
    
 
     const fetchMarryConnections = async () => {
@@ -34,6 +36,7 @@ const Proposals = (props) => {
     
       // console.log(data.marryconnections);
       setMarryConnections(data.marryconnections)
+      setFlag(false)
     
       };
     
@@ -52,6 +55,7 @@ const Proposals = (props) => {
     
       // console.log(data.sentrequests);
       setmarrysentReqMem(data.marrysent)
+      setFlag(false)
     
       };
   
@@ -70,6 +74,7 @@ const Proposals = (props) => {
       
         // console.log(data.sentrequests);
         setmarryreceivedReqMem(data.marryreceived)
+        setFlag(false)
       
         };
   
@@ -228,8 +233,36 @@ const Proposals = (props) => {
             <div className="container membercontainer">
         
         {
-          marrysentReqMem.length === 0 && 
-          <h3>You don't have any sent requests!</h3>
+          marrysentReqMem.length === 0 && !flag &&
+
+          
+  <div className="" 
+ 
+  >
+
+<h3 style={{margin:"auto",
+           marginLeft:"100px",
+          justifyContent:"center"
+    }}>You don't have any sent proposals!</h3>
+
+  <img style={{
+    height:"70%",
+    width:"70%",
+    marginLeft:"100px",
+    justifyContent:"center"
+  }} src={errorimg}   alt="..." />
+
+
+
+</div>
+
+       
+        }
+
+        { flag &&
+
+         <Spinner/>
+
         }
         
           <div className="row row-cols-1  row-cols-md-4 ">
@@ -288,7 +321,28 @@ const Proposals = (props) => {
         
             {
           marryreceivedReqMem.length === 0 && 
-          <h3>You don't have any received requests!</h3>
+
+          <div className="" 
+ 
+          >
+        
+        <h3 style={{margin:"auto",
+                   marginLeft:"100px",
+                  justifyContent:"center"
+            }}>You don't have any received proposals!</h3>
+        
+          <img style={{
+            height:"70%",
+            width:"70%",
+            marginLeft:"100px",
+            justifyContent:"center"
+          }} src={errorimg}   alt="..." />
+        
+        
+        
+        </div>
+         
+          
         }
           <div className="row row-cols-1  row-cols-md-4 ">
         
@@ -346,7 +400,25 @@ const Proposals = (props) => {
     
         {
       marryConnections.length === 0 && 
-      <h3>You don't have any marry connections!</h3>
+      <div className="" 
+ 
+      >
+    
+    <h3 style={{margin:"auto",
+               marginLeft:"100px",
+              justifyContent:"center"
+        }}>You don't have any marry proposals!</h3>
+    
+      <img style={{
+        height:"70%",
+        width:"70%",
+        marginLeft:"100px",
+        justifyContent:"center"
+      }} src={errorimg}   alt="..." />
+    
+    
+    
+    </div>
     }
       <div className="row row-cols-1  row-cols-md-4 ">
     

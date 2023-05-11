@@ -30,7 +30,8 @@ function Sidebar(props) {
     const docSnap = await getDoc(docRef);
     const Data = docSnap.data();
     // console.log(Data.active);
-    setSStatus(Data.active)
+    // if(Data.active)
+    // setSStatus(Data.active)
 
   }
 
@@ -63,7 +64,7 @@ function Sidebar(props) {
   const navigate = useNavigate();
 
   const [UN,setUN] = useState("");
-  const [profile1Url,setprofile1Url] = useState("");
+  const [profile1Url,setprofile1Url] = useState("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRf2hw0Mq5YNF3BFKPHP5WBxrAOAl1_MdYPxQ&usqp=CAU");
 
   const getPhoto = async()=>{
 
@@ -75,7 +76,8 @@ function Sidebar(props) {
     const bgDetailsData = docSnap.data();
     // console.log(bgDetailsData.url);
 
-    setprofile1Url(bgDetailsData.url)
+    // if(bgDetailsData.url)
+      //  setprofile1Url(bgDetailsData.url)
     
     
   
@@ -124,7 +126,18 @@ function Sidebar(props) {
     <div className="side-content1">
       <div className="profile1">
         
-        <div className="profile1-img bg-img" style={{backgroundImage:`url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRf2hw0Mq5YNF3BFKPHP5WBxrAOAl1_MdYPxQ&usqp=CAU)`}} />
+
+      {(profile1Url)?
+              // <img className="profile1-img bg-img" src={profile1Url}  />
+              <div className="profile1-img bg-img" style={{backgroundImage:`url(${profile1Url})`}} /> 
+             :
+             <div className="profile1-img bg-img" style={{backgroundImage:`url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRf2hw0Mq5YNF3BFKPHP5WBxrAOAl1_MdYPxQ&usqp=CAU)`}} /> 
+             }
+          {/* <h5 className="card-title"> {item.fullName} </h5> */}
+   
+
+        
+        {/* <div className="profile1-img bg-img" style={{backgroundImage:`url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRf2hw0Mq5YNF3BFKPHP5WBxrAOAl1_MdYPxQ&usqp=CAU)`}} /> */}
         {/* <img className="profile1-img bg-img" src={profile1Url}  /> */}
         <h4>{props.username}</h4>
       

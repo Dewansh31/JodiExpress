@@ -67,19 +67,15 @@ function App() {
 
 		<Routes>
 
+		<Route path="/signup" element={<Signup />} />
+		<Route path="/login" element={<Login />} /> 
+
 
            { !isAuthenticated && 
 
-                    
-						<>
-						<Route path="/signup" element={<Signup />} />
-						<Route path="/login" element={<Login />} /> 
-						{/* <Route path='/error' element={<ErrorPage/>} /> */}
-						<Route path='*' element={<Navigate to='/login' />} />
-					
-						</>
+				<Route path='*' element={<Login />} />
 
-		   }
+		    }
 			
 
 	
@@ -87,9 +83,13 @@ function App() {
    
 
 				{ isAuthenticated &&
+
+				
 						
 
 					<>
+
+					<Route path='*' element={<Navigate to='/error' />} />
 
 					{/* admin */}
 
@@ -102,14 +102,14 @@ function App() {
 								<Route path="/dashboard2" element={<Dashboard2 name={userName}/>} />
 								<Route path="/addreligion" element={<AddReligion name={userName} />} />
 								<Route path="/addcaste" element={<AddCaste name={userName} />}/>
-								<Route path="/addmember" element={<AddMember name={userName} />} />
+								{/* <Route path="/addmember" element={<AddMember name={userName} />} /> */}
 								<Route path="/freemember" element={<FreeMember name={userName}/>} />
 								<Route path="/premiummember" element={<PemiumMember name={userName} />} />
 
 								<Route path="/couples" element={<Couples name={userName} />} />
 								<Route path='/error' element={<ErrorPage/>} />
 
-								<Route path='*' element={<Navigate to='/error' />} />
+								{/* <Route path='*' element={<Navigate to='/error' />} /> */}
 
 								</>
 
@@ -133,7 +133,7 @@ function App() {
 					<Route path="/myproposals" element={<Proposals name={userName} />} />
 					<Route path="/couples" element={<Couples name={userName} />} />
 					<Route path='/error' element={<ErrorPage/>} />
-					<Route path='*' element={<Navigate to='/error' />} />
+					{/* <Route path='*' element={<Navigate to='/error' />} /> */}
 					</>
 
 

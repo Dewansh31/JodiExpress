@@ -16,6 +16,7 @@ import { app } from '../firebase';
 import { getAuth } from "firebase/auth";
 import './selfInfo.css'
 import { Link, NavLink } from 'react-router-dom';
+import Spinner from '../Spinner';
 
 const firestore = getFirestore(app)
 
@@ -59,29 +60,35 @@ const SelfInfo = (props) => {
 
         <Sidebar username={props.name}/>
 
-        {/* <MDBBtn onClick={toggleShow} >Full screen below xl</MDBBtn>
-        <MDBModal  tabIndex='-1' show={fullscreenXlModal} setShow={setFullscreenXlModal}>
-          <MDBModalDialog size='fullscreen-xl-down'>
-            <MDBModalContent> */}
+       
             <div >
-            <MDBModalHeader className='header '>
+            {/* <MDBModalHeader className='header '>
                 <MDBModalTitle >Your Profile Details</MDBModalTitle>
                
-              </MDBModalHeader>
+              </MDBModalHeader> */}
+
+    <div className="page-header header" style={{padding:"0 0 0 0",position:"relative"}}>
+
+            <h3 style={{padding:"10px 50px ",margin:"auto"}}>My Profile</h3>
+       
+      </div>
 
             </div>
              
               <MDBModalBody className='selfInfoBody' >
+
+            
+                
               <div>
       <div className="container rounded bg-white mt-5 mb-5 ">
         <div className="row">
           <div className="col-md-3 border-right">
             <div className="d-flex flex-column align-items-center text-center">
               <img
-                className="rounded-circle mt-5"
+                className="mt-5 card"
                 width="150px"
                 alt='img'
-                src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
+                src={selected.url}
               />
               <span className="font-weight-bold">{selected.username}</span>
               <span className="text-black-50">{selected.email}</span>
@@ -237,9 +244,9 @@ const SelfInfo = (props) => {
                 
               <Link type="button" class="btn btn-primary" to="/profile">Update Details</Link>
               </MDBModalFooter>
-            {/* </MDBModalContent>
-          </MDBModalDialog>
-        </MDBModal> */}
+           
+          
+
       </>
     );
 }

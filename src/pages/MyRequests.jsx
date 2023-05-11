@@ -8,6 +8,8 @@ import { auth } from "../firebase";
 import { getAuth } from "firebase/auth";
 import {arrayUnion, arrayRemove } from "firebase/firestore";
 import { MDBBtn } from 'mdb-react-ui-kit';
+import errorimg from '../images/error.png'
+import Spinner from '../Spinner';
 
 
 const db = getFirestore(app)
@@ -17,6 +19,7 @@ const MyRequests = (props) => {
 
   const [sentReqMem,setSentReqMem] = useState([]);
   const [receivedReqMem,setReceivedReqMem] = useState([]);
+  const [flag,setFlag] = useState(true)
   
   const fetchsetmembers = async () => {
    
@@ -33,6 +36,7 @@ const MyRequests = (props) => {
   
     // console.log(data.sentrequests);
     setSentReqMem(data.sentrequests)
+    setFlag(false)
   
     };
 
@@ -51,6 +55,7 @@ const MyRequests = (props) => {
     
       // console.log(data.sentrequests);
       setReceivedReqMem(data.receivedrequests)
+      setFlag(false)
     
       };
 
@@ -196,8 +201,30 @@ const MyRequests = (props) => {
     <div className="container membercontainer">
 
 {
-  sentReqMem.length === 0 && 
-  <h3>You don't have any sent requests!</h3>
+  sentReqMem.length === 0 && !flag &&
+
+  <div className="" >
+
+<h3 style={{margin:"auto",
+           marginLeft:"100px",
+          justifyContent:"center"
+    }}>You don't have any sent requests!</h3>
+
+  <img style={{
+    height:"70%",
+    width:"70%",
+    marginLeft:"100px",
+    justifyContent:"center"
+  }} src={errorimg}   alt="..." />
+
+</div>
+
+}
+
+{ flag &&
+
+ <Spinner/>
+
 }
 
   <div className="row row-cols-1  row-cols-md-4 ">
@@ -257,7 +284,28 @@ const MyRequests = (props) => {
 
     {
   receivedReqMem.length === 0 && 
-  <h3>You don't have any received requests!</h3>
+
+  <div className="" 
+ 
+  >
+
+<h3 style={{margin:"auto",
+           marginLeft:"100px",
+          justifyContent:"center"
+    }}>You don't have any received requests!</h3>
+
+  <img style={{
+    height:"70%",
+    width:"70%",
+    marginLeft:"100px",
+    justifyContent:"center"
+  }} src={errorimg}   alt="..." />
+
+
+
+</div>
+
+ 
 }
   <div className="row row-cols-1  row-cols-md-4 ">
 

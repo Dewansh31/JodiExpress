@@ -8,20 +8,63 @@ import { app } from './firebase';
 import { auth } from "./firebase";
 import { getAuth } from "firebase/auth";
 import { useEffect, useState } from "react";
+import {
+  MDBBtn,
+  MDBModal,
+  MDBModalDialog,
+  MDBModalContent,
+  MDBModalHeader,
+  MDBModalTitle,
+  MDBModalBody,
+  MDBModalFooter,
+} from 'mdb-react-ui-kit';
+import { MDBInput } from 'mdb-react-ui-kit';
 
 const db = getFirestore(app)
 
 function AddCaste(props) {
 
+  const [centredModal, setCentredModal] = useState(false);
+
+  const toggleShow = () => setCentredModal(!centredModal);
+
   const [cityList,setCityList] = useState([]);
   const [cityValue,setCityValue] = useState("");
+  const [selectedCity,setSelectedCity] = useState("");
+  const [editCity,setEditCity] = useState("");
+  const [newcityvalue,setNewCityValue] = useState("");
+  const [cities, setCities] = useState([]);
+
+  const foo = () => {
+    var headers = new Headers();
+    headers.append(
+      "X-CSCAPI-KEY",
+      "ZjV4eWVjaEpBZkFrVTk1N2VUaGhOeGNPQ2dDeGliMlBtUzFRaWo3Rw=="
+    );
+
+    var requestOptions = {
+      method: "GET",
+      headers: headers,
+      redirect: "follow"
+    };
+
+    fetch(
+      "https://api.countrystatecity.in/v1/countries/IN/cities",
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((result) => {
+        //    for (let i = 0; i < result.length; i++) {
+        //         console.log(result[i].name)
+        // }
+        setCities(result);
+        // console.log(result)
+      })
+      .catch((error) => console.log("error", error));
+  }
 
   const fetchCastes = async () => {
    
-    // const auth = getAuth();
-    // const sender = auth.currentUser;
-  
-    // const firestore = getFirestore()
     const docRef = doc(db, `admindata`, "castedata")
     const docSnap = await getDoc(docRef)
   
@@ -31,7 +74,7 @@ function AddCaste(props) {
   
     
     setCityList(data.castes);
-    // console.log("cities:",cityList);
+
 
     
   
@@ -39,7 +82,7 @@ function AddCaste(props) {
 
     const addCities =  async () =>{
       const cityRef = doc (db,`admindata`,`castedata`);
-      // console.log(cityValue);
+   
       await  updateDoc(cityRef,  {
         castes: arrayUnion(cityValue)
        })
@@ -47,12 +90,92 @@ function AddCaste(props) {
        setCityValue("")
       }
 
+      const handleSelected = async() =>{
+        
+       
+       
+      }
+
+      const handleEdit = async() =>{
+
+     
+          const docRef = doc(db, `admindata`, 'castedata')
+        
+
+          const docSnap = await getDoc(docRef)
+          
+  
+          const data = docSnap.exists() ? docSnap.data() : null
+         
+        
+          if (data === null || data === undefined) return null
+          
+  
+          // console.log(data.sentrequests);
+          var temp = data.castes
+          var index = temp.indexOf(editCity)
+       
+  
+        temp[index] = newcityvalue;
+        console.log(temp[index]);
+        
+  
+        
+          await  updateDoc(docRef,  {
+            castes: temp
+           })
+
+            setNewCityValue("")
+            setEditCity("")
+        
+
+
+      }
+
+      const deleteCaste = async(r) =>{
+
+        console.log(r);
+
+
+        // const firestore = getFirestore()
+        const docRef = doc(db, `admindata`, 'castedata')
+        
+
+        const docSnap = await getDoc(docRef)
+        
+
+        const data = docSnap.exists() ? docSnap.data() : null
+       
+      
+        if (data === null || data === undefined) return null
+        
+
+       
+
+        // console.log(data.sentrequests);
+        var temp = data.castes
+        temp = temp.filter(function(value, index, arr){ 
+          return value !== r;
+      })
+      
+
+      
+        await  updateDoc(docRef,  {
+          castes: temp
+         })
+
+        
+  
+    
+    
+      }
      
       
 
     useEffect(() => {
       fetchCastes()
-      // console.log(loggedInUser);  
+      foo()
+      setSelectedCity("")
       }, [cityList]);
     
 
@@ -104,6 +227,7 @@ function AddCaste(props) {
                       data-toggle="tooltip"
                       data-placement="top"
                       title="Edit"
+                      onClick={()=>setEditCity(item)}
                     >
                       <i class="fa fa-edit"></i>
                     </button>
@@ -115,6 +239,7 @@ function AddCaste(props) {
                       data-toggle="tooltip"
                       data-placement="top"
                       title="Delete"
+                      onClick={() => deleteCaste(item)}
                     >
                       <i class="fa fa-trash"></i>
                     </button>
@@ -126,6 +251,8 @@ function AddCaste(props) {
             ))}
             
           </tbody>
+
+          
         </table>
       </div>
     </div>
@@ -157,10 +284,39 @@ function AddCaste(props) {
                 </div>
               </div>
             </div>
+            <hr/>
+            <div className="acard" >
+              <div className="acard-body">
+                <h5 className="default-text">Edit Caste</h5>
+                {/*Body*/}
+                <div className="md-form">
+                  <label htmlFor="defaultForm-email">Caste</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    placeholder={editCity}
+                     value={newcityvalue} 
+                     onChange={(e) => setNewCityValue(e.target.value)}
+                  />
+                </div>
+                <div className="text-center mt-2 rk">
+                  <button type="button" class="btn btn-primary" onClick={handleEdit}>
+                    Edit
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
+
+         
+          
         </div>
       </div>
     </main>
+
+    
+
+
   </div>
   )
 }

@@ -6,14 +6,15 @@ import { MDBBadge } from 'mdb-react-ui-kit';
 import { collection, query, where, getDocs,or,and,orderBy  } from "firebase/firestore";
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
-
+import { BsSearchHeart } from 'react-icons/bs';
 import Select from 'react-select';
 import Alert from 'react-bootstrap/Alert';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import {doc,updateDoc} from "firebase/firestore"; 
 import {arrayUnion } from "firebase/firestore";
-
+import Spinner from '../Spinner';
+import errorimg from '../images/error.png'
 
 const db = getFirestore(app)
 
@@ -252,13 +253,6 @@ function Search() {
    
   }
 
-  // const getsentmembers = async () => {
-
-  //   const auth = getAuth();
-  //   const sender = auth.currentUser;
-  //   return await getDocs(collection(db, `users/${sender.username}/sentrequests`));
-   
-  // };
 
 
   const handleConnect = async(r) =>{
@@ -320,7 +314,9 @@ function Search() {
 
   const [show, setShow] = useState(false);
   const [showAlert, setShowAlert] = useState(false);
-
+  const [products, setProducts] = useState([]);
+  const [searchVal, setSearchVal] = useState("");
+  const [flag,setFlag] = useState(true);
 
 
   const getAllmembers = async () => {
@@ -341,7 +337,9 @@ function Search() {
 
     tempmembers1 = tempmembers1.sort((a, b) => Number(b.featured) - Number(a.featured));
 
+
     setmembers(tempmembers1);
+    setFlag(false)
     setPrev(tempmembers1);
 
   };
@@ -349,13 +347,15 @@ function Search() {
 
   const applyFilter = async() =>{
 
-    // const q1 = query(collection(db, "users"), and(
-                                            //  where("caste", "==", caste),
-                                            //  where("degree", "==", degree),
-                                            //  where("income", "==", income),
-                                            //  where("religion", "==", religion),
-                                            //  where("city", "==", cityValue)
-                                            //  ));
+    setFlag(true)
+
+    const q1 = query(collection(db, "users"), and(
+                                             where("caste", "==", caste),
+                                             where("degree", "==", degree),
+                                             where("income", "==", income),
+                                             where("religion", "==", religion),
+                                             where("workplace", "==", cityValue)
+                                             ));
                                              
     const q2 = query(collection(db, "users"),
                                              or(
@@ -379,6 +379,8 @@ function Search() {
                                            
                                              );
 
+
+
     const querySnapshot = await getDocs(q2);
    
     var tmp = [];
@@ -386,12 +388,15 @@ function Search() {
 
     tmp = tmp.sort((a, b) => Number(b.featured) - Number(a.featured));
     setmembers(tmp);
+    setFlag(false)
 
   }
 
   const clearFilter = () =>{
     // console.log("cleared");
+    setFlag(true)
     setmembers(prev)
+    setFlag(false)
     setCaste(null);
     setDegree(null);
     setcityValue(null);
@@ -400,6 +405,31 @@ function Search() {
   }
 
 
+  const productList = ["blue pant"
+  , "black pant"
+  , "blue shirt"
+  , "black shoes"
+  , "brown shoes"
+  , "white pant"
+  , "white shoes"
+  , "red shirt"
+  , "gray pant"
+  , "white shirt"
+  , "golden shoes"
+  , "dark pant"
+  , "pink shirt"
+  , "yellow pant"];
+
+  function handleSearchClick() {
+      if (searchVal === "") { setmembers(members); return; }
+      // console.log(searchVal);
+      const filterBySearch = members.filter((item) => {
+          if (item.fullName.toString().toLowerCase()
+              .includes(searchVal.toString().toLowerCase())) { return item; }
+      })
+      setmembers(filterBySearch);
+      console.log((filterBySearch));
+  }
 
 
  
@@ -411,17 +441,35 @@ function Search() {
   }, []);
 
 
- 
+  const mystyle = {
+    
+
+  color: "red",
+  cursor: "pointer",
+  width: "20px",
+  marginTop: "20px",
+  alignItems: "center",
+  justifyContent: "center",
+  marginRight: "100px"
+};
    
 
   return (
     <div className='container mc'>
      <div className="searchBarwrapper">
   <div id="search-scontainer">
-    <input type="search" id="search-input" placeholder="Search here.." />
-    <button id="searchbtn" style={{backgroundColor:"#060047"}} type='submit' onClick={applyFilter} >Search</button>
-    <button id="clr"style={{backgroundColor:"#ff0062"}}  type='submit' onClick={clearFilter} >Clear Filter</button>
+
+ 
+
+    <input type="search" onChange={e => setSearchVal(e.target.value)} id="search-input" placeholder="Search here.." />
+    
+ 
+    <button style={{backgroundColor:"rgb(218 221 228 / 58%)",borderRadius:"200px",cursor:"pointer"}} onClick={handleSearchClick} >🔍</button>
+    <button id="searchbtn" style={{backgroundColor:"#060047",cursor:"pointer"}} type='submit' onClick={applyFilter} >Search</button>
+    <button id="clr"style={{backgroundColor:"#ff0062",cursor:"pointer"}}  type='submit' onClick={clearFilter} >Clear Filter</button>
   </div>
+ 
+
   <div id="buttons d-flex flex-row">
     
   <div class="container selectContainer">
@@ -490,20 +538,29 @@ function Search() {
    <div className="container membercontainer">
 
    {
-      members.length === 0 &&
+      members.length === 0 && !flag &&
   (
 
-    <p>No result found</p>
-    // <div class="d-flex justify-content-center">
-    // <div class="spinner-border" role="status">
-    //   <span class="visually-hidden">Loading...</span>
-    // </div>
-    // </div>
+    <div className="" >
 
-
+   
+    
+      <img style={{
+        height:"50%",
+        width:"50%",
+        marginLeft:"25%",
+        justifyContent:"center",
+      
+      }} src={errorimg}   alt="..." />
+    
+    </div>
 
   )
       
+   }
+
+   { flag && 
+          <Spinner/>
    }
 
   <div className="row row-cols-1  row-cols-md-4 ">

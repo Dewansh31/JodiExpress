@@ -54,7 +54,7 @@ const ImgSection = () => {
 });
 
       
-        await updateDoc(docRef,  {
+  await updateDoc(docRef,  {
             url:imageUrl
           })
 
